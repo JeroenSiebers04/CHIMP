@@ -70,11 +70,11 @@ warp:
     duration: 1m
 
     # Concurrent operations to run per warp instance.
-    concurrent: 16
+    concurrent: 8
 
     # The number of objects to upload before starting the benchmark.
     # Upload enough objects to ensure that any remote caching is bypassed.
-    objects: 100000
+    objects: 1000
 
     # Adjust the distribution of each operation type
     # The final distribution will be determined by the fraction of each value of the total.
@@ -87,7 +87,7 @@ warp:
     # Properties of uploaded objects.
     obj:
       # Size of each uploaded object
-      size: 1KiB
+      size: 100KiB
 
       # Randomize the size of each object within certain constraints.
       # See https://github.com/minio/warp?tab=readme-ov-file#random-file-sizes
@@ -167,7 +167,7 @@ warp:
     debug: false
 
     # Disable HTTP Keep-Alive
-    disable-http-keepalive: true
+    disable-http-keepalive: false
 
     # Enable HTTP2 support if server supports it
     http2: false
