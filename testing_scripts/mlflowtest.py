@@ -1,10 +1,17 @@
-iplist = {"http://localhost:5253", "http://localhost:5254"}
+import mlflow
+#mlflow.set_tracking_uri(uri="http://localhost:8999/")
+
+# Create a new MLflow Experiment
+#mlflow.set_experiment("MLflow Quickstart")
+
+iplist = {"http://localhost:8999"}
 
 import timeit
 import requests
 
+
 for ip in iplist:
-    ip = ip + "/ping"
+    ip = ip 
     
     try:
         latency_seconds = timeit.timeit(lambda: requests.get(ip), number=1)
@@ -15,8 +22,7 @@ for ip in iplist:
         continue
 
     latency_ms = latency_seconds * 1000
-    if response.text != "pong":
-        print(f"Unexpected response from {ip}: {response.text}\n")
-    else:
-        print(f"Valid response from {ip}")
-        print(f"Latency of {ip}: {latency_ms:.2f} ms")
+    
+    
+    print(f"Valid response from {ip}")
+    print(f"Latency of {ip}: {latency_ms:.2f} ms")
