@@ -15,7 +15,7 @@ else:
     print("Invalid choice. Exiting.")
     exit()
 
-path = os.path.join(os.getcwd(), "testing_scripts", file)
+path = os.path.join(os.getcwd(), "MinIO", file)
 
 command = [
     "warp",

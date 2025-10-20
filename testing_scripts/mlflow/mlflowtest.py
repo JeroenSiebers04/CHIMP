@@ -23,6 +23,5 @@ for ip in iplist:
 
     latency_ms = latency_seconds * 1000
     
-    
-    print(f"Valid response from {ip}")
-    print(f"Latency of {ip}: {latency_ms:.2f} ms")
+    if latency_ms != None:
+        print(f"{ip} is reachable with {latency_ms:.2f} ms latency")
