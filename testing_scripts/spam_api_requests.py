@@ -1,8 +1,10 @@
+# This script utilises the API endpoint to start an amount of model calibration jobs to generate a big workload on the training worker and MlFLow and a spike in network I/O
+
 import requests
 
 i = 0
 
-while(i < 100):
+while(i < 200):
     url = "http://localhost:5253/tasks/run/Emotion+Recognition"
 
     params = {

@@ -1,3 +1,4 @@
 mlflow
 psutil
 pynvml
+pytest
