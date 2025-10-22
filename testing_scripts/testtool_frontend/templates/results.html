@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Testresultaten</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+<body>
+    <h1>Resultaten</h1>
+    {% for script, output in results.items() %}
+        <h2>{{ script }}</h2>
+        <pre>{{ output }}</pre>
+    {% endfor %}
+    <a href="/">Terug</a>
+</body>
+</html>

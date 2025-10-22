@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Testtool Frontend</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+<body>
+    <h1>Container Testtool</h1>
+    <form action="/run" method="POST">
+        {% for name, path in scripts.items() %}
+            <label>
+                <input type="checkbox" name="scripts" value="{{ name }}">
+                {{ name }}
+            </label><br>
+        {% endfor %}
+        <button type="submit">Start geselecteerde tests</button>
+    </form>
+</body>
+</html>
