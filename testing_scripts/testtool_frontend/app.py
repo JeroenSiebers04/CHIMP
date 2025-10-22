@@ -7,8 +7,7 @@ SCRIPTS = {
     "API - availability": "../API/api_availability.py",
     "API - latency training": "../API/latency_training_api_endpoint.py",
     "API - latency serving": "../API/latency_serving_api_endpoints.py",
-    "MinIO - stress test": "../MinIO/stress_object_store.py",
-    "Hardware usage": "../hardware_usage/get_docker_hw_stats.py",
+    "MinIO - stress test": "../MinIO/stress_object_store.py"
 }
 
 @app.route('/')
