@@ -2,11 +2,13 @@ from flask import Flask, render_template, request
 import subprocess
 import sys
 
-app = Flask(__name__)
+# Serve the local `style` directory at the URL path `/style` so the existing
+# stylesheet link <link href="/style/style.css"> works without moving files.
+app = Flask(__name__, static_url_path='/style', static_folder='style')
 
 SCRIPTS_BY_TAB = {
     "Training worker": {
-        # no training-worker-specific scripts here yet
+        # Moet nog aangevuld worden
     },
     "Serving API": {
         "API - availability": "..\\testing_scripts\\API\\api_availability.py",
@@ -41,9 +43,7 @@ def index():
 
 @app.route('/run', methods=['POST'])
 def run_script():
-    # selected will be a list of human-readable script names (the keys)
     selected = request.form.getlist('scripts')
-    # build a lookup name -> path from the nested dict
     lookup = {}
     for tab, mapping in SCRIPTS_BY_TAB.items():
         for name, path in mapping.items():
@@ -56,7 +56,6 @@ def run_script():
             results[script_name] = f"Script path not found for: {script_name}"
             continue
         try:
-            # use the same Python interpreter sys is running with
             result = subprocess.run([sys.executable, path], capture_output=True, text=True)
             out = result.stdout.strip()
             err = result.stderr.strip()

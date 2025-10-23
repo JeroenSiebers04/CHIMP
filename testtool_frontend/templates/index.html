@@ -3,56 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Testtool Frontend</title>
-    <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="..\\style\\style.css">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(function(el){ el.style.display = 'none'; });
-            document.getElementById(tabId).style.display = 'block';
-            document.querySelectorAll('.tab-button').forEach(function(b){ b.classList.remove('active'); });
-            document.querySelector('[data-tab="'+tabId+'"]').classList.add('active');
+        function showTab(tabIdOrButton) {
+            // Accept either a tabId string or the button element that was clicked
+            var tabId = typeof tabIdOrButton === 'string' ? tabIdOrButton : tabIdOrButton.getAttribute('data-tab');
+
+            document.querySelectorAll('.tab-content').forEach(function(el){
+                el.style.display = 'none';
+                el.setAttribute('aria-hidden', 'true');
+            });
+
+            var panel = document.getElementById(tabId);
+            if (panel) {
+                panel.style.display = 'block';
+                panel.setAttribute('aria-hidden', 'false');
+            }
+
+            document.querySelectorAll('.tab-button').forEach(function(b){
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+
+            var btn = typeof tabIdOrButton === 'string' ? document.querySelector('[data-tab="'+tabIdOrButton+'"]') : tabIdOrButton;
+            if (btn) {
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+            }
         }
+
+        // Validate that at least one script checkbox is selected before submitting
+        function validateAndSubmit(form) {
+            // Clear previous error
+            const err = document.getElementById('form-error');
+            if (err) err.textContent = '';
+
+            const checked = Array.from(form.querySelectorAll('input[name="scripts"]')).some(function(cb){ return cb.checked; });
+            if (!checked) {
+                if (err) {
+                    err.textContent = 'Kies minimaal één testscript voordat u de tests start.';
+                    err.style.display = 'block';
+                } else {
+                    alert('Kies minimaal één testscript voordat u de tests start.');
+                }
+                return false; // prevent submission
+            }
+            return true; // allow submission
+        }
+
         window.addEventListener('DOMContentLoaded', function(){
             const first = document.querySelector('.tab-button');
-            if(first) first.click();
+            if(first) showTab(first);
         });
-                // prevent submitting the form when no checkbox is checked and show a client-side message
-+        function validateAndSubmit(form) {
-                        const anyChecked = Array.from(form.querySelectorAll('input[type=checkbox]')).some(cb => cb.checked);
-                        const existing = document.getElementById('no-selection-msg');
-                        if (existing) existing.remove();
-                        if (!anyChecked) {
-                                const msg = document.createElement('div');
-                                msg.id = 'no-selection-msg';
-                                msg.className = 'flash error';
-                                msg.textContent = 'Kies minstens één test voordat je start.';
-                                form.parentNode.insertBefore(msg, form);
-                                return false;
-                        }
-                        return true;
-                }
     </script>
 </head>
 <body>
     <h1>Container Testtool</h1>
-        {%- with messages = get_flashed_messages(with_categories=true) %}
-            {%- if messages %}
-                <div class="flashes">
-                    {%- for category, message in messages %}
-                        <div class="flash {{ category }}">{{ message }}</div>
-                    {%- endfor %}
-                </div>
-            {%- endif %}
-        {%- endwith %}
-    <div class="tabbar">
+    <div class="tabbar" role="tablist" aria-label="Test categories">
         {% for tab, mapping in tabs.items() %}
-            <button type="button" class="tab-button" data-tab="tab-{{ loop.index }}" onclick="showTab('tab-{{ loop.index }}')">{{ tab }}</button>
+            <button type="button" class="tab-button" role="tab" aria-controls="tab-{{ loop.index }}" data-tab="tab-{{ loop.index }}" onclick="showTab(this)">{{ tab }}</button>
         {% endfor %}
     </div>
 
-    <form action="/run" method="POST">
+    <form action="/run" method="POST" onsubmit="return validateAndSubmit(this);">
         {% for tab, mapping in tabs.items() %}
-            <div id="tab-{{ loop.index }}" class="tab-content" style="display:none">
+            <div id="tab-{{ loop.index }}" class="tab-content" role="tabpanel" aria-labelledby="tab-{{ loop.index }}-button" aria-hidden="true" style="display:none">
                 <h2>{{ tab }}</h2>
                 {% if mapping %}
                     {% for name, path in mapping.items() %}
@@ -62,7 +78,7 @@
                         </label>
                     {% endfor %}
                 {% else %}
-                    <p><em>Geen scripts beschikbaar voor deze categorie.</em></p>
+                    <p>Geen scripts beschikbaar voor deze categorie.</p>
                 {% endif %}
             </div>
         {% endfor %}

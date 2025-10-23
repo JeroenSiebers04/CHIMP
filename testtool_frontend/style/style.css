@@ -28,6 +28,15 @@ pre {
     border-radius: 4px;
 }
 
+.form-error {
+    background: #fff5f6;
+    border: 1px solid #ffd7da;
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-top: 0.75rem;
+    display: none;
+}
+
 /* Tab bar styles */
 .tabbar {
     display: flex;
@@ -43,10 +52,20 @@ pre {
     border-radius: 6px;
     cursor: pointer;
 }
+
+/* Active/selected tab */
 .tab-button.active {
-    background: #007BFF;
-    color: #fff;
-    border-color: #006be6;
+    /* Use explicit properties and !important to ensure this rule wins over generic button styles
+       (some environments or cached CSS can cause the element rule to override class rules). */
+    background-color: #007BFF !important; /* primary blue */
+    color: #fff !important;
+    border-color: #0056b3 !important;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05) inset;
+}
+
+.tab-button:focus {
+    outline: 3px solid rgba(0,123,255,0.2);
+    outline-offset: 2px;
 }
 
 .tab-content {

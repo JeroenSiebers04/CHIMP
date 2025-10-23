@@ -1,0 +1,2 @@
+47M	/data/mlruns
+132K	/data/mlflow.db
