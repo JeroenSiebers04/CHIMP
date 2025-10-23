@@ -73,8 +73,16 @@ def run_script():
 
 @app.route('/test')
 def run_code():
-    result = stress_serving_api_hardware(amount=200)
-    return jsonify({"message" : result})
+    # Allow an optional `amount` query parameter from the form on the index page.
+    amount_param = request.args.get('amount', None)
+    try:
+        amount = int(amount_param) if amount_param is not None and amount_param != '' else 200
+    except ValueError:
+        amount = 200
+
+    result = stress_serving_api_hardware(amount=amount)
+    # Return the result along with the amount used so the frontend can show it if needed.
+    return jsonify({"amount": amount, "message": result})
 
 if __name__ == '__main__':
     app.run(debug=True)

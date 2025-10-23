@@ -83,8 +83,10 @@
         <button type="submit">Start geselecteerde tests</button>
     </form>
 
-    <form action="/test">
-        <button type="submit">bone apple teeth</button>
+    <form action="/test" method="GET" style="margin-top:1rem;">
+        <label for="amount">Amount parameter for /test:</label>
+        <input id="amount" name="amount" type="number" min="1" placeholder="200" style="width:6rem;margin-left:.5rem;">
+        <button type="submit" style="margin-left:.5rem;">Run /test</button>
     </form>
 </body>
 </html>

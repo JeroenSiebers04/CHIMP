@@ -8,6 +8,9 @@
 </head>
 <body>
     <h1>Resultaten</h1>
+    {% if amount is defined %}
+        <p>Parameter amount: <strong>{{ amount }}</strong></p>
+    {% endif %}
     {% for script, output in results.items() %}
         <h2>{{ script }}</h2>
         <pre>{{ output }}</pre>
