@@ -33,9 +33,7 @@
             }
         }
 
-        // Validate that at least one script checkbox is selected before submitting
         function validateAndSubmit(form) {
-            // Clear previous error
             const err = document.getElementById('form-error');
             if (err) err.textContent = '';
 
@@ -47,9 +45,9 @@
                 } else {
                     alert('Kies minimaal één testscript voordat u de tests start.');
                 }
-                return false; // prevent submission
+                return false; 
             }
-            return true; // allow submission
+            return true;
         }
 
         window.addEventListener('DOMContentLoaded', function(){
@@ -59,7 +57,7 @@
     </script>
 </head>
 <body>
-    <h1>Container Testtool</h1>
+    <h1>CHIMP Testtool</h1>
     <div class="tabbar" role="tablist" aria-label="Test categories">
         {% for tab, mapping in tabs.items() %}
             <button type="button" class="tab-button" role="tab" aria-controls="tab-{{ loop.index }}" data-tab="tab-{{ loop.index }}" onclick="showTab(this)">{{ tab }}</button>
