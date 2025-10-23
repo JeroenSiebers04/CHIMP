@@ -7,6 +7,7 @@ def get_docker_hardware_stats():
 
     output = result.stdout
 
+    print("/----- DOCKER HARDWARE STATS -----\\")
     print(output)
 
 if __name__ == "__main__":

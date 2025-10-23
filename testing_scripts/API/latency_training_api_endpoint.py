@@ -5,6 +5,8 @@ import timeit
 
 def test_latency_training_api_endpoint():
 
+    print("/----- TRAINING API -----\\")
+
     url = "http://localhost:5253/tasks/run/Emotion+Recognition"
 
     params = {
@@ -19,12 +21,12 @@ def test_latency_training_api_endpoint():
     latency_s = timeit.timeit(lambda: requests.post(url, params=params), number=1)
     latency_ms = latency_s * 1000
     response = requests.post(url, params=params)
-
-    if "task started successfully" in response.text:
-        print(f"Latency when starting model calibration: {latency_ms:.2f}ms. Returned status code: {response.status_code}")
-
+    if response.status_code == 200:
+        if "task started successfully" in response.text:
+            print(f"Latency when starting model calibration: {latency_ms:.2f}ms. Returned http-code is as expected: {response.status_code}")
+        else:
+            print("Unable to determine if task was created successfully.\n")
     else:
-        print("Unable to determine if task was created successfully.\n")
-
+        print(f"Got an unexpected http-code from {url}. Status code should be 200, but is {response.status_code}")
 if __name__ == "__main__":
     test_latency_training_api_endpoint()
