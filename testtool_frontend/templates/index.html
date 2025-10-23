@@ -4,15 +4,67 @@
     <meta charset="UTF-8">
     <title>Testtool Frontend</title>
     <link rel="stylesheet" href="/style/style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(function(el){ el.style.display = 'none'; });
+            document.getElementById(tabId).style.display = 'block';
+            document.querySelectorAll('.tab-button').forEach(function(b){ b.classList.remove('active'); });
+            document.querySelector('[data-tab="'+tabId+'"]').classList.add('active');
+        }
+        window.addEventListener('DOMContentLoaded', function(){
+            const first = document.querySelector('.tab-button');
+            if(first) first.click();
+        });
+                // prevent submitting the form when no checkbox is checked and show a client-side message
++        function validateAndSubmit(form) {
+                        const anyChecked = Array.from(form.querySelectorAll('input[type=checkbox]')).some(cb => cb.checked);
+                        const existing = document.getElementById('no-selection-msg');
+                        if (existing) existing.remove();
+                        if (!anyChecked) {
+                                const msg = document.createElement('div');
+                                msg.id = 'no-selection-msg';
+                                msg.className = 'flash error';
+                                msg.textContent = 'Kies minstens één test voordat je start.';
+                                form.parentNode.insertBefore(msg, form);
+                                return false;
+                        }
+                        return true;
+                }
+    </script>
 </head>
 <body>
     <h1>Container Testtool</h1>
+        {%- with messages = get_flashed_messages(with_categories=true) %}
+            {%- if messages %}
+                <div class="flashes">
+                    {%- for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {%- endfor %}
+                </div>
+            {%- endif %}
+        {%- endwith %}
+    <div class="tabbar">
+        {% for tab, mapping in tabs.items() %}
+            <button type="button" class="tab-button" data-tab="tab-{{ loop.index }}" onclick="showTab('tab-{{ loop.index }}')">{{ tab }}</button>
+        {% endfor %}
+    </div>
+
     <form action="/run" method="POST">
-        {% for name, path in scripts.items() %}
-            <label>
-                <input type="checkbox" name="scripts" value="{{ name }}">
-                {{ name }}
-            </label><br>
+        {% for tab, mapping in tabs.items() %}
+            <div id="tab-{{ loop.index }}" class="tab-content" style="display:none">
+                <h2>{{ tab }}</h2>
+                {% if mapping %}
+                    {% for name, path in mapping.items() %}
+                        <label>
+                            <input type="checkbox" name="scripts" value="{{ name }}">
+                            {{ name }}
+                        </label>
+                    {% endfor %}
+                {% else %}
+                    <p><em>Geen scripts beschikbaar voor deze categorie.</em></p>
+                {% endif %}
+            </div>
         {% endfor %}
         <button type="submit">Start geselecteerde tests</button>
     </form>

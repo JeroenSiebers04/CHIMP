@@ -27,3 +27,45 @@ pre {
     padding: 1rem;
     border-radius: 4px;
 }
+
+/* Tab bar styles */
+.tabbar {
+    display: flex;
+    gap: 8px;
+    margin: 1rem 0 1.5rem 0;
+    flex-wrap: wrap;
+}
+.tab-button {
+    background: #ffffff;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.tab-button.active {
+    background: #007BFF;
+    color: #fff;
+    border-color: #006be6;
+}
+
+.tab-content {
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    text-decoration: none;
+    color: #007BFF;
+}
+.back-link:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+    body { margin: 1rem; }
+    .tabbar { gap:6px; }
+}

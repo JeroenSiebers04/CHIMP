@@ -1,30 +1,71 @@
 from flask import Flask, render_template, request
 import subprocess
+import sys
 
 app = Flask(__name__)
 
-SCRIPTS = {
-    "API - availability": "../API/api_availability.py",
-    "API - latency training": "../API/latency_training_api_endpoint.py",
-    "API - latency serving": "../API/latency_serving_api_endpoints.py",
-    "MinIO - stress test": "../MinIO/stress_object_store.py"
+SCRIPTS_BY_TAB = {
+    "Training worker": {
+        # no training-worker-specific scripts here yet
+    },
+    "Serving API": {
+        "API - availability": "..\\testing_scripts\\API\\api_availability.py",
+        "API - latency serving": "..\\testing_scripts\\API\\latency_serving_api_endpoints.py",
+    },
+    "Training API": {
+        "API - latency training": "..\\testing_scripts\\API\\latency_training_api_endpoint.py",
+    },
+    "MLFlow": {
+        "MLFlow - storage size": "..\\testing_scripts\\MLFlow\\get_mlflow_storage_size.py",
+    },
+    "Objectstore": {
+        "MinIO - stress test": "..\\testing_scripts\\MinIO/stress_object_store.py",
+        "MinIO - storage size": "..\\testing_scripts\\MinIO\\get_objectstore_storage_size.py",
+    },
+    "Front-end": {
+        "Curl frontend": "..\\testing_scripts\\curl_frontend.py",
+    },
+    "Message Queue": {
+        "Spam API requests": "..\\testing_scripts\\spam_api_requests.py",
+    },
+    "CHIMP": {
+        "Menu": "..\\testing_scripts\\menu.py",
+    },
 }
+
 
 @app.route('/')
 def index():
-    return render_template('index.html', scripts=SCRIPTS)
+    return render_template('index.html', tabs=SCRIPTS_BY_TAB)
+
 
 @app.route('/run', methods=['POST'])
 def run_script():
+    # selected will be a list of human-readable script names (the keys)
     selected = request.form.getlist('scripts')
+    # build a lookup name -> path from the nested dict
+    lookup = {}
+    for tab, mapping in SCRIPTS_BY_TAB.items():
+        for name, path in mapping.items():
+            lookup[name] = path
+
     results = {}
-    for script in selected:
+    for script_name in selected:
+        path = lookup.get(script_name)
+        if not path:
+            results[script_name] = f"Script path not found for: {script_name}"
+            continue
         try:
-            result = subprocess.run(["python", SCRIPTS[script]], capture_output=True, text=True)
-            results[script] = result.stdout or result.stderr
+            # use the same Python interpreter sys is running with
+            result = subprocess.run([sys.executable, path], capture_output=True, text=True)
+            out = result.stdout.strip()
+            err = result.stderr.strip()
+            results[script_name] = out if out else err if err else f"Exit code {result.returncode} (no output)"
         except Exception as e:
-            results[script] = str(e)
+            results[script_name] = str(e)
+
     return render_template('results.html', results=results)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
