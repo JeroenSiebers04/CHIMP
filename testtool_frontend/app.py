@@ -1,6 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import subprocess
 import sys
+import os
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from testing_scripts.hardware_usage.stress_serving_api import stress_serving_api_hardware
 
 # Serve the local `style` directory at the URL path `/style` so the existing
 # stylesheet link <link href="/style/style.css"> works without moving files.
@@ -13,6 +18,7 @@ SCRIPTS_BY_TAB = {
     "Serving API": {
         "API - availability": "..\\testing_scripts\\API\\api_availability.py",
         "API - latency serving": "..\\testing_scripts\\API\\latency_serving_api_endpoints.py",
+        "API - throughput serving": "..\\testing_scripts\\hardware_usage\\stress_serving_api.py",
     },
     "Training API": {
         "API - latency training": "..\\testing_scripts\\API\\latency_training_api_endpoint.py",
@@ -65,6 +71,10 @@ def run_script():
 
     return render_template('results.html', results=results)
 
+@app.route('/test')
+def run_code():
+    result = stress_serving_api_hardware(amount=200)
+    return jsonify({"message" : result})
 
 if __name__ == '__main__':
     app.run(debug=True)

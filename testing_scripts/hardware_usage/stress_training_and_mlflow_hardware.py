@@ -24,10 +24,10 @@ def stress_training_and_mlflow_hardware(amount):
             print(response.text)
 
             print(f"Sent request no. {i}\n")
-            
+
     except Exception as e:
         print("/----- TRAINING API - ERROR REPORT -----\\")
-        print(f"Encountered an error at API request no.{i}")
+        print(f"Encountered an error at API request no. {i}")
         print(f"Error details: {str(e)}")
 
 if __name__ == "__main__":

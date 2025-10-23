@@ -15,6 +15,8 @@ def stress_serving_api_hardware(amount):
             print(response.text)
             print(f"Finished request {i} of {amount}\n")
 
+        return "Finished succesfully."
+
     except Exception as e:
         print("/----- SERVING API - ERROR REPORT -----\\")
         print(f"Encountered an error at API request no. {i}")
