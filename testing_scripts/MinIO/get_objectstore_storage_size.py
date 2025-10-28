@@ -3,8 +3,8 @@
 
 import os
 import subprocess
-def get_objectstore_storage_size():
-    is_first_time = input("Do you want to perform intialisation? This step is required for the first use. (y/n): ")
+def get_objectstore_storage_size(is_first_time):
+    # is_first_time should be a string, where 'y' signifies a first time usage that would require initialisation
 
     current_path = os.path.join(__file__)
     trimmed_path = current_path.replace("\MinIO\get_objectstore_storage_size.py", "")
@@ -13,10 +13,11 @@ def get_objectstore_storage_size():
 
     is_first_time = is_first_time.lower
     if(is_first_time != "y"):
-        subprocess.run(f"{mc} admin info play")
+        result = subprocess.run(f"{mc} admin info MyMinio", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        print(f"\n{result.stdout.decode('utf-8')}")
 
     else:
         subprocess.run(f"{mc} alias set MyMinio http://localhost:9000 minioadmin minioadmin")
 
 if __name__ == "__main__":
-    get_objectstore_storage_size()
+    get_objectstore_storage_size(is_first_time='n')
