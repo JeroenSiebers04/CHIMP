@@ -70,10 +70,16 @@
                 <h2>{{ tab }}</h2>
                 {% if mapping %}
                     {% for name, path in mapping.items() %}
-                        <label>
-                            <input type="checkbox" name="scripts" value="{{ name }}">
-                            {{ name }}
-                        </label>
+                        <div class="script-row" style="margin-bottom:.5rem;">
+                            <label style="margin-right:.5rem;">
+                                <input type="checkbox" name="scripts" value="{{ name }}" onchange="toggleControls(this)">
+                                {{ name }}
+                            </label>
+                            <!-- per-script amount input and run button (hidden until checkbox is checked) -->
+                            <input id="amount-{{ loop.index }}-{{ loop.index0 }}" name="amount-{{ loop.index }}-{{ loop.index0 }}" type="number" min="1" placeholder="200" style="width:6rem;margin-left:.5rem;display:none;">
+                            <button type="button" onclick="runWithAmount('{{ name|e }}','amount-{{ loop.index }}-{{ loop.index0 }}','result-{{ loop.index }}-{{ loop.index0 }}')" style="margin-left:.5rem;display:none;">Run</button>
+                            <div id="result-{{ loop.index }}-{{ loop.index0 }}" class="script-result" style="margin-top:.25rem; white-space:pre-wrap; font-family:monospace; display:none;"></div>
+                        </div>
                     {% endfor %}
                 {% else %}
                     <p>Geen scripts beschikbaar voor deze categorie.</p>
@@ -83,10 +89,65 @@
         <button type="submit">Start geselecteerde tests</button>
     </form>
 
-    <form action="/test" method="GET" style="margin-top:1rem;">
-        <label for="amount">Amount parameter for /test:</label>
-        <input id="amount" name="amount" type="number" min="1" placeholder="200" style="width:6rem;margin-left:.5rem;">
-        <button type="submit" style="margin-left:.5rem;">Run /test</button>
-    </form>
+    <script>
+        async function runWithAmount(scriptName, amountId, resultId) {
+            const amountEl = document.getElementById(amountId);
+            const resultEl = document.getElementById(resultId);
+            if (!amountEl) return alert('Amount input not found');
+            const amount = amountEl.value;
+            const form = new FormData();
+            form.append('script', scriptName);
+            form.append('amount', amount);
+
+            resultEl.textContent = 'Running...';
+            try {
+                const resp = await fetch('/run_with_amount', { method: 'POST', body: form });
+                const data = await resp.json();
+                if (!resp.ok) {
+                    resultEl.textContent = JSON.stringify(data, null, 2);
+                    return;
+                }
+                // Prefer stdout if present
+                if (data.stdout) {
+                    resultEl.textContent = data.stdout;
+                } else if (data.result) {
+                    resultEl.textContent = String(data.result);
+                } else {
+                    resultEl.textContent = JSON.stringify(data, null, 2);
+                }
+            } catch (err) {
+                resultEl.textContent = String(err);
+            }
+        }
+    </script>
+    <script>
+        // Toggle visibility of per-script controls (amount input, run button, result)
+        function toggleControls(checkbox) {
+            const row = checkbox.closest('.script-row');
+            if (!row) return;
+            const amountEl = row.querySelector('input[type="number"]');
+            const btn = row.querySelector('button');
+            const resultEl = row.querySelector('.script-result');
+            if (checkbox.checked) {
+                if (amountEl) amountEl.style.display = 'inline-block';
+                if (btn) btn.style.display = 'inline-block';
+                if (resultEl) resultEl.style.display = 'block';
+            } else {
+                if (amountEl) amountEl.style.display = 'none';
+                if (btn) btn.style.display = 'none';
+                if (resultEl) {
+                    resultEl.style.display = 'none';
+                    resultEl.textContent = '';
+                }
+            }
+        }
+
+        // Ensure initial visibility of controls matches checkbox state
+        window.addEventListener('DOMContentLoaded', function(){
+            document.querySelectorAll('.script-row input[type="checkbox"]').forEach(function(cb){
+                toggleControls(cb);
+            });
+        });
+    </script>
 </body>
 </html>

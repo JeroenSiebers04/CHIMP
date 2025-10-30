@@ -14,3 +14,84 @@
 
 43 MiB Used, 2 Buckets, 28,706 Objects
 1 drive online, 0 drives offline, EC:0
+
+/----- SERVING API -----\
+Successfully finished sending 12 API requests to the endpoint that lists all available models to generate a load on the serving API.
+/----- SERVING API -----\
+The serving is available at http://localhost:5254/ping. Returned http-code is as expected: 200
+
+/----- SERVING API -----\
+Latency when retrieving a list of all available models: 161.86ms. Returned http-code is as expected: 200
+Latency when requesting inference from onnx_emo_datastore model: 2230.15ms. Returned http-code is as expected: 500
+/----- SERVING API -----\
+Successfully finished sending 123 API requests to the endpoint that lists all available models to generate a load on the serving API./
+----- MLFLOW -----\
+Total size file size used by mlflow: 47.13 MB/
+----- MLFLOW -----\
+Total size file size used by mlflow: 47.13 MB/
+----- MLFLOW -----\
+Total size file size used by mlflow: 47.13 MB/
+----- MLFLOW -----\
+Total size file size used by mlflow: 47.13 MB
+/----- SERVING API -----\
+The serving is available at http://localhost:5254/ping. Returned http-code is as expected: 200
+
+/----- SERVING API -----\
+Latency when retrieving a list of all available models: 9.05ms. Returned http-code is as expected: 200
+Latency when requesting inference from onnx_emo_datastore model: 1114.53ms. Returned http-code is as expected: 500
+/----- SERVING API -----\
+The serving is available at http://localhost:5254/ping. Returned http-code is as expected: 200
+
+/----- SERVING API -----\
+Latency when retrieving a list of all available models: 13.47ms. Returned http-code is as expected: 200
+Latency when requesting inference from onnx_emo_datastore model: 59.58ms. Returned http-code is as expected: 500
+/----- SERVING API - ERROR REPORT -----\
+Encountered an error when sending None API requests to the endpoint that lists all available models to generate a load on the serving API at API request no. 0
+Error details: '<' not supported between instances of 'int' and 'NoneType'
+/----- SERVING API -----\
+Successfully finished sending 123 API requests to the endpoint that lists all available models to generate a load on the serving API.
+/----- TRAINING API -----\
+Latency when starting model calibration: 343.81ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 271.92ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 40.71ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 23.74ms. Returned http-code is as expected: 200/
+----- MLFLOW -----\
+Total size file size used by mlflow: 47.13 MB/
+----- MLFLOW -----\
+Total size file size used by mlflow: 47.13 MB/
+----- MLFLOW -----\
+Total size file size used by mlflow: 47.13 MB/
+----- MLFLOW -----\
+Total size file size used by mlflow: 47.13 MB/
+----- MLFLOW -----\
+Total size file size used by mlflow: 0.00 MB/
+----- MLFLOW -----\
+Total size file size used by mlflow: 47.13 MB
+/----- SERVING API -----\
+The serving is available at http://localhost:5254/ping. Returned http-code is as expected: 200
+
+/----- SERVING API -----\
+Successfully finished sending 123 API requests to the endpoint that lists all available models to generate a load on the serving API.
+/----- TRAINING API -----\
+Latency when starting model calibration: 787.04ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 21.91ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 157.50ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 21.51ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 20.00ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 18.45ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 98.06ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 104.34ms. Returned http-code is as expected: 200
+/----- SERVING API -----\
+Successfully finished sending 15 API requests to the endpoint that lists all available models to generate a load on the serving API.
+/----- SERVING API -----\
+Successfully finished sending 2000 API requests to the endpoint that lists all available models to generate a load on the serving API.
