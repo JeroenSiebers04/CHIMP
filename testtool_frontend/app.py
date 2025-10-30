@@ -58,7 +58,6 @@ def index():
             try:
                 with open(abs_path, 'r', encoding='utf-8') as f:
                     src = f.read()
-                    # match function signatures containing 'amount' inside parentheses
                     if re.search(r"def\s+\w+\s*\([^)]*\bamount\b[^)]*\)", src):
                         ok = True
             except Exception:
@@ -106,19 +105,15 @@ def _load_module_from_path(path):
 
 
 def _call_module_with_amount(module, amount):
-    # Find a callable that accepts an 'amount' parameter or first positional param
     candidates = []
     for fname, fn in inspect.getmembers(module, inspect.isfunction):
         sig = inspect.signature(fn)
         params = sig.parameters
-        # prefer functions that mention stress/test/run in name
         score = 0
         if any(k in fname.lower() for k in ("stress", "test", "run", "main")):
             score += 1
-        # check if accepts 'amount' kw
         if 'amount' in params:
             score += 2
-        # or first param is a numeric-like name
         elif len(params) >= 1:
             first = next(iter(params.values()))
             if first.name in ('amount', 'n', 'num', 'count', 'requests'):
@@ -135,16 +130,12 @@ def _call_module_with_amount(module, amount):
 
     _, fname, fn, sig = candidates[0]
 
-    # prepare call
     try:
-        # try calling with keyword
         if 'amount' in sig.parameters:
             return fn(amount=amount)
         else:
-            # positional
             return fn(amount)
     except TypeError:
-        # last resort: call without args
         return fn()
 
 
@@ -176,17 +167,14 @@ def run_with_amount():
 
     abs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path))
 
-    # Try import-and-call first
     try:
         mod = _load_module_from_path(path)
-        # capture stdout while calling
         buf = io.StringIO()
         with contextlib.redirect_stdout(buf):
             result = _call_module_with_amount(mod, amount)
         output = buf.getvalue()
         return jsonify({'script': script_name, 'amount': amount, 'stdout': output, 'result': str(result)})
     except Exception as e:
-        # fallback to subprocess with --amount
         try:
             cmd = [sys.executable, abs_path]
             if amount is not None:
@@ -200,7 +188,6 @@ def run_with_amount():
 
 @app.route('/test')
 def run_code():
-    # Allow an optional `amount` query parameter from the form on the index page.
     amount_param = request.args.get('amount', None)
     try:
         amount = int(amount_param) if amount_param is not None and amount_param != '' else 200
@@ -208,7 +195,6 @@ def run_code():
         amount = 200
 
     result = stress_serving_api_hardware(amount=amount)
-    # Return the result along with the amount used so the frontend can show it if needed.
     return jsonify({"amount": amount, "message": result})
 
 if __name__ == '__main__':

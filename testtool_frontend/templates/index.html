@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script>
         function showTab(tabIdOrButton) {
-            // Accept either a tabId string or the button element that was clicked
             var tabId = typeof tabIdOrButton === 'string' ? tabIdOrButton : tabIdOrButton.getAttribute('data-tab');
 
             document.querySelectorAll('.tab-content').forEach(function(el){
@@ -75,9 +74,8 @@
                                 <input type="checkbox" name="scripts" value="{{ name }}" onchange="toggleControls(this)">
                                 {{ name }}
                             </label>
-                            <!-- per-script amount input and run button (hidden until checkbox is checked) -->
                             <input id="amount-{{ loop.index }}-{{ loop.index0 }}" name="amount-{{ loop.index }}-{{ loop.index0 }}" type="number" min="1" placeholder="200" style="width:6rem;margin-left:.5rem;display:none;">
-                            <button type="button" onclick="runWithAmount('{{ name|e }}','amount-{{ loop.index }}-{{ loop.index0 }}','result-{{ loop.index }}-{{ loop.index0 }}')" style="margin-left:.5rem;display:none;">Run</button>
+                            <button type="button" onclick="runWithAmount('{{ name|e }}','amount-{{ loop.index }}-{{ loop.index0 }}','result-{{ loop.index }}-{{ loop.index0 }}')" style="margin-left:.5rem;display:none;">Start test</button>
                             <div id="result-{{ loop.index }}-{{ loop.index0 }}" class="script-result" style="margin-top:.25rem; white-space:pre-wrap; font-family:monospace; display:none;"></div>
                         </div>
                     {% endfor %}
