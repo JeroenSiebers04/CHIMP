@@ -87,7 +87,7 @@ warp:
     # Properties of uploaded objects.
     obj:
       # Size of each uploaded object
-      size: 100KiB
+      size: 1KiB
 
       # Randomize the size of each object within certain constraints.
       # See https://github.com/minio/warp?tab=readme-ov-file#random-file-sizes

@@ -2,3 +2,4 @@ mlflow
 psutil
 pynvml
 pytest
+redis

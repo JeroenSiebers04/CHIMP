@@ -1,4 +1,5 @@
 # This script bundles all the other scripts in this folder.
+# depricated
 
 keeps_going = True
 while keeps_going == True:

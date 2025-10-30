@@ -74,7 +74,7 @@ warp:
 
     # The number of objects to upload before starting the benchmark.
     # Upload enough objects to ensure that any remote caching is bypassed.
-    objects: 100000
+    objects: 10000
 
     # Adjust the distribution of each operation type
     # The final distribution will be determined by the fraction of each value of the total.
@@ -91,7 +91,7 @@ warp:
 
       # Randomize the size of each object within certain constraints.
       # See https://github.com/minio/warp?tab=readme-ov-file#random-file-sizes
-      rand-size: false
+      rand-size: true
 
       # Force specific size of each multipart part.
       # Must be '5MB' or bigger.

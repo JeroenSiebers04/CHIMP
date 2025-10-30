@@ -1,11 +1,16 @@
 # This script checks the latency of two endpoints for the serving API: 1. retrieving a list of all models, 2. requesting inference from the model.
 # Definition of latency: 1. The time it takes from making the request to receiving a list of all models, 2. The time it takes from making the request to recieving a response from the inference endpoint.
-
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from  generate_test_output import write_file, initialize_empty_txt
 import timeit
 import requests
 
 def test_latency_serving_api_endpoints():
+  initialize_empty_txt()
   print("/----- SERVING API -----\\")
+  write_file("\n/----- SERVING API -----\\")
 
   list_models_ip = "http://localhost:5254/model"
 
@@ -15,8 +20,10 @@ def test_latency_serving_api_endpoints():
 
   if response_list_models.status_code == 200:
     print(f"Latency when retrieving a list of all available models: {latency_list_models_ms:.2f}ms. Returned http-code is as expected: {response_list_models.status_code}")
+    write_file(f"\nLatency when retrieving a list of all available models: {latency_list_models_ms:.2f}ms. Returned http-code is as expected: {response_list_models.status_code}")
   else:
     print(f"Got an unexpected http-code from {list_models_ip}. Status code should be 200, but is {response_list_models.status_code}")
+    write_file(f"\nGot an unexpected http-code from {list_models_ip}. Status code should be 200, but is {response_list_models.status_code}")
 
   inference_ip = "http://localhost:5254/model/onnx_emo_datastore/infer"
 
@@ -30,8 +37,10 @@ def test_latency_serving_api_endpoints():
   
   if response_inference.status_code == 500:
     print(f"Latency when requesting inference from onnx_emo_datastore model: {latency_inference_ms:.2f}ms. Returned http-code is as expected: {response_inference.status_code}")
+    write_file(f"\nLatency when requesting inference from onnx_emo_datastore model: {latency_inference_ms:.2f}ms. Returned http-code is as expected: {response_inference.status_code}")
   else:
     print(f"Got an unexpected http-code from {inference_ip}. Status code should be 500, but is {response_inference.status_code}")
+    write_file(f"\nGot an unexpected http-code from {inference_ip}. Status code should be 500, but is {response_inference.status_code}")
 
 if __name__ == "__main__":
   test_latency_serving_api_endpoints()
