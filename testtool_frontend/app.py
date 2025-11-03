@@ -21,12 +21,14 @@ SCRIPTS_BY_TAB = {
         # Moet nog aangevuld worden
     },
     "Serving API": {
-    "API - availability": "..\\testing_scripts\\API\\serving_api_availability.py",
+        "API - availability": "..\\testing_scripts\\API\\serving_api_availability.py",
         "API - latency serving": "..\\testing_scripts\\API\\latency_serving_api_endpoints.py",
-        "API - throughput serving": "..\\testing_scripts\\hardware_usage\\stress_serving_api.py",
+        "API - throughput serving": "..\\testing_scripts\\API\\serving_api_throughput.py",
     },
     "Training API": {
+        "API - availability": "..\\testing_scripts\\API\\training_api_availability.py", 
         "API - latency training": "..\\testing_scripts\\API\\latency_training_api_endpoint.py",
+        "API - throughput training": "..\\testing_scripts\\API\\training_api_throughput.py",
     },
     "MLFlow": {
         "MLFlow - storage size": "..\\testing_scripts\\MLFlow\\get_mlflow_storage_size.py",
@@ -36,13 +38,13 @@ SCRIPTS_BY_TAB = {
         "MinIO - storage size": "..\\testing_scripts\\MinIO\\get_objectstore_storage_size.py",
     },
     "Front-end": {
-        "Curl frontend": "..\\testing_scripts\\curl_frontend.py",
+        # Moet nog aangevuld worden
     },
     "Message Queue": {
-        "Spam API requests": "..\\testing_scripts\\spam_api_requests.py",
+        # Moet nog aangevuld worden
     },
     "CHIMP": {
-        "Menu": "..\\testing_scripts\\menu.py",
+        "Ketentest": "..\\testing_scripts\\menu.py",
     },
 }
 

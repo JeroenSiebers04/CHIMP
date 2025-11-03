@@ -74,9 +74,12 @@
                                 <input type="checkbox" name="scripts" value="{{ name }}" onchange="toggleControls(this)">
                                 {{ name }}
                             </label>
-                            <input id="amount-{{ loop.index }}-{{ loop.index0 }}" name="amount-{{ loop.index }}-{{ loop.index0 }}" type="number" min="1" placeholder="200" style="width:6rem;margin-left:.5rem;display:none;">
-                            <button type="button" onclick="runWithAmount('{{ name|e }}','amount-{{ loop.index }}-{{ loop.index0 }}','result-{{ loop.index }}-{{ loop.index0 }}')" style="margin-left:.5rem;display:none;">Start test</button>
-                            <div id="result-{{ loop.index }}-{{ loop.index0 }}" class="script-result" style="margin-top:.25rem; white-space:pre-wrap; font-family:monospace; display:none;"></div>
+                            {# Only show per-script amount/run controls when the backend marked the script as accepting an amount #}
+                            {% if accepts_amount.get(name) %}
+                                <input id="amount-{{ loop.index }}-{{ loop.index0 }}" name="amount-{{ loop.index }}-{{ loop.index0 }}" type="number" min="1" placeholder="200" style="width:6rem;margin-left:.5rem;display:none;">
+                                <button type="button" onclick="runWithAmount('{{ name|e }}','amount-{{ loop.index }}-{{ loop.index0 }}','result-{{ loop.index }}-{{ loop.index0 }}')" style="margin-left:.5rem;display:none;">Start test</button>
+                                <div id="result-{{ loop.index }}-{{ loop.index0 }}" class="script-result" style="margin-top:.25rem; white-space:pre-wrap; font-family:monospace; display:none;"></div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 {% else %}

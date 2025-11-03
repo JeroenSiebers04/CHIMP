@@ -504,3 +504,135 @@ Successfully finished sending 1000 API requests per thread to the endpoint that 
 Successfully finished sending 1000 API requests per thread to the endpoint that lists all available datasets to generate a load on the training API.
 /----- TRAINING API -----\
 Successfully finished sending 1000 API requests per thread to the endpoint that lists all available datasets to generate a load on the training API.
+/----- SERVING API -----\
+Successfully finished sending 12 API requests to the endpoint that lists all available models to generate a load on the serving API.
+/----- SERVING API -----\
+Successfully finished sending 15 API requests to the endpoint that lists all available models to generate a load on the serving API.
+/----- SERVING API -----\
+Latency when retrieving a list of all available models: 12.69ms. Returned http-code is as expected: 200
+Latency when requesting inference from onnx_emo_datastore model: 3408.49ms. Returned http-code is as expected: 500
+/----- TRAINING API -----\
+Latency when starting model calibration: 353.29ms. Returned http-code is as expected: 200
+/----- SERVING API -----\
+The serving is available at http://localhost:5254/ping. Returned http-code is as expected: 200
+
+/----- SERVING API -----\
+Latency when retrieving a list of all available models: 67.89ms. Returned http-code is as expected: 200
+Latency when requesting inference from onnx_emo_datastore model: 2099.72ms. Returned http-code is as expected: 500
+/----- SERVING API -----\
+Successfully finished sending 100 API requests to the endpoint that lists all available models to generate a load on the serving API.
+/----- TRAINING API -----\
+Latency when starting model calibration: 193.77ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 18.01ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 18.51ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Latency when starting model calibration: 26.29ms. Returned http-code is as expected: 200/
+----- MLFLOW -----\
+Total size file size used by mlflow: 93.13 MB
+/----- OBJECT STORE -----\
+/----- OBJECT STORE -----\
+●  localhost:9000
+   Uptime: 19 minutes 
+   Version: 2025-09-07T16:13:09Z
+   Network: 1/1 OK 
+   Drives: 1/1 OK 
+   Pool: 1
+
+┌──────┬────────────────────────┬─────────────────────┬──────────────┐
+│ Pool │ Drives Usage           │ Erasure stripe size │ Erasure sets │
+│ 1st  │ 86.3% (total: 460 GiB) │ 1                   │ 1            │
+└──────┴────────────────────────┴─────────────────────┴──────────────┘
+
+22 GiB Used, 2 Buckets, 31,725 Objects
+1 drive online, 0 drives offline, EC:0
+
+/----- OBJECT STORE -----\
+/----- OBJECT STORE -----\
+●  localhost:9000
+   Uptime: 22 minutes 
+   Version: 2025-09-07T16:13:09Z
+   Network: 1/1 OK 
+   Drives: 1/1 OK 
+   Pool: 1
+
+┌──────┬────────────────────────┬─────────────────────┬──────────────┐
+│ Pool │ Drives Usage           │ Erasure stripe size │ Erasure sets │
+│ 1st  │ 86.3% (total: 460 GiB) │ 1                   │ 1            │
+└──────┴────────────────────────┴─────────────────────┴──────────────┘
+
+22 GiB Used, 2 Buckets, 31,725 Objects
+1 drive online, 0 drives offline, EC:0
+
+/----- OBJECT STORE -----\
+●  localhost:9000
+   Uptime: 23 minutes 
+   Version: 2025-09-07T16:13:09Z
+   Network: 1/1 OK 
+   Drives: 1/1 OK 
+   Pool: 1
+
+┌──────┬────────────────────────┬─────────────────────┬──────────────┐
+│ Pool │ Drives Usage           │ Erasure stripe size │ Erasure sets │
+│ 1st  │ 86.3% (total: 460 GiB) │ 1                   │ 1            │
+└──────┴────────────────────────┴─────────────────────┴──────────────┘
+
+22 GiB Used, 2 Buckets, 31,725 Objects
+1 drive online, 0 drives offline, EC:0
+
+/----- OBJECT STORE -----\
+●  localhost:9000
+   Uptime: 24 minutes 
+   Version: 2025-09-07T16:13:09Z
+   Network: 1/1 OK 
+   Drives: 1/1 OK 
+   Pool: 1
+
+┌──────┬────────────────────────┬─────────────────────┬──────────────┐
+│ Pool │ Drives Usage           │ Erasure stripe size │ Erasure sets │
+│ 1st  │ 86.3% (total: 460 GiB) │ 1                   │ 1            │
+└──────┴────────────────────────┴─────────────────────┴──────────────┘
+
+22 GiB Used, 2 Buckets, 31,725 Objects
+1 drive online, 0 drives offline, EC:0
+
+/----- OBJECT STORE -----\
+/----- SERVING API -----\
+Throughput of the endpoint that lists all available models: 235.23 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 12.00 requests per second. (Using the available hardware and 1 thread)
+/----- SERVING API -----\
+Throughput of the endpoint that lists all available models: 184.67 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 7.37 requests per second. (Using the available hardware and 1 thread)
+/----- SERVING API -----\
+Throughput of the endpoint that lists all available models: 248.91 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 17.53 requests per second. (Using the available hardware and 1 thread)
+/----- SERVING API -----\
+Throughput of the endpoint that lists all available models: 216.13 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 6.01 requests per second. (Using the available hardware and 1 thread)
+/----- SERVING API -----\
+Throughput of the endpoint that lists all available models: 245.16 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 21.52 requests per second. (Using the available hardware and 1 thread)
+/----- SERVING API -----\
+Throughput of the endpoint that lists all available models: 237.89 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 23.59 requests per second. (Using the available hardware and 1 thread)
+/----- SERVING API -----\
+Throughput of the endpoint that lists all available models: 227.87 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 23.59 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+The training api is available at http://localhost:5253/ping. Returned http-code is as expected: 200
+
+/----- TRAINING API -----\
+Latency when starting model calibration: 24.30ms. Returned http-code is as expected: 200
+/----- TRAINING API -----\
+Throughput of the endpoint that lists all available datasets: 11.45 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+Throughput of the endpoint that lists all available datasets: 11.46 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+Throughput of the endpoint that lists all available datasets: 10.81 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+Throughput of the endpoint that lists all available datasets: 11.43 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+Throughput of the endpoint that lists all available datasets: 13.38 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+Throughput of the endpoint that lists all available datasets: 12.65 requests per second. (Using the available hardware and 1 thread)
