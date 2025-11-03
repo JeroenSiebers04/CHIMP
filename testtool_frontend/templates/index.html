@@ -74,11 +74,10 @@
                                 <input type="checkbox" name="scripts" value="{{ name }}" onchange="toggleControls(this)">
                                 {{ name }}
                             </label>
-                            {# Only show per-script amount/run controls when the backend marked the script as accepting an amount #}
                             {% if accepts_amount.get(name) %}
-                                <input id="amount-{{ loop.index }}-{{ loop.index0 }}" name="amount-{{ loop.index }}-{{ loop.index0 }}" type="number" min="1" placeholder="200" style="width:6rem;margin-left:.5rem;display:none;">
-                                <button type="button" onclick="runWithAmount('{{ name|e }}','amount-{{ loop.index }}-{{ loop.index0 }}','result-{{ loop.index }}-{{ loop.index0 }}')" style="margin-left:.5rem;display:none;">Start test</button>
-                                <div id="result-{{ loop.index }}-{{ loop.index0 }}" class="script-result" style="margin-top:.25rem; white-space:pre-wrap; font-family:monospace; display:none;"></div>
+                                {% set safe = name|replace(' ', '_') %}
+                                <input id="amount-{{ safe }}" name="amount-{{ safe }}" type="number" min="1" placeholder="200" style="width:6rem;margin-left:.5rem;display:none;" aria-describedby="hint-{{ safe }}">
+                                    <span id="hint-{{ safe }}" class="input-hint" style="margin-left:.5rem;color:#666;display:none;">{{ hints.get(name, 'Vul hier de gewenste hoeveelheid in') }}</span>
                             {% endif %}
                         </div>
                     {% endfor %}
@@ -91,59 +90,20 @@
     </form>
 
     <script>
-        async function runWithAmount(scriptName, amountId, resultId) {
-            const amountEl = document.getElementById(amountId);
-            const resultEl = document.getElementById(resultId);
-            if (!amountEl) return alert('Amount input not found');
-            const amount = amountEl.value;
-            const form = new FormData();
-            form.append('script', scriptName);
-            form.append('amount', amount);
-
-            resultEl.textContent = 'Running...';
-            try {
-                const resp = await fetch('/run_with_amount', { method: 'POST', body: form });
-                const data = await resp.json();
-                if (!resp.ok) {
-                    resultEl.textContent = JSON.stringify(data, null, 2);
-                    return;
-                }
-                // Prefer stdout if present
-                if (data.stdout) {
-                    resultEl.textContent = data.stdout;
-                } else if (data.result) {
-                    resultEl.textContent = String(data.result);
-                } else {
-                    resultEl.textContent = JSON.stringify(data, null, 2);
-                }
-            } catch (err) {
-                resultEl.textContent = String(err);
-            }
-        }
-    </script>
-    <script>
-        // Toggle visibility of per-script controls (amount input, run button, result)
         function toggleControls(checkbox) {
             const row = checkbox.closest('.script-row');
             if (!row) return;
             const amountEl = row.querySelector('input[type="number"]');
-            const btn = row.querySelector('button');
-            const resultEl = row.querySelector('.script-result');
+            const hintEl = row.querySelector('.input-hint');
             if (checkbox.checked) {
                 if (amountEl) amountEl.style.display = 'inline-block';
-                if (btn) btn.style.display = 'inline-block';
-                if (resultEl) resultEl.style.display = 'block';
+                if (hintEl) hintEl.style.display = 'inline-block';
             } else {
                 if (amountEl) amountEl.style.display = 'none';
-                if (btn) btn.style.display = 'none';
-                if (resultEl) {
-                    resultEl.style.display = 'none';
-                    resultEl.textContent = '';
-                }
+                if (hintEl) hintEl.style.display = 'none';
             }
         }
 
-        // Ensure initial visibility of controls matches checkbox state
         window.addEventListener('DOMContentLoaded', function(){
             document.querySelectorAll('.script-row input[type="checkbox"]').forEach(function(cb){
                 toggleControls(cb);

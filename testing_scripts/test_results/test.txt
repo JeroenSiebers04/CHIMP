@@ -636,3 +636,17 @@ Throughput of the endpoint that lists all available datasets: 11.43 requests per
 Throughput of the endpoint that lists all available datasets: 13.38 requests per second. (Using the available hardware and 1 thread)
 /----- TRAINING API -----\
 Throughput of the endpoint that lists all available datasets: 12.65 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+Throughput of the endpoint that lists all available datasets: 11.60 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+The training api is available at http://localhost:5253/ping. Returned http-code is as expected: 200
+
+/----- SERVING API -----\
+Throughput of the endpoint that lists all available models: 221.47 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 20.72 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+The training api is available at http://localhost:5253/ping. Returned http-code is as expected: 200
+
+/----- SERVING API -----\
+Throughput of the endpoint that lists all available models: 220.47 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 19.97 requests per second. (Using the available hardware and 1 thread)
