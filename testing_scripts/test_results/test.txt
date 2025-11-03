@@ -5428,3 +5428,18 @@ Throughput of the endpoint that requests inference: 20.29 requests per second. (
 /----- SERVING API -----\
 Throughput of the endpoint that lists all available models: 198.71 requests per second. (Using the available hardware and 1 thread)
 Throughput of the endpoint that requests inference: 20.80 requests per second. (Using the available hardware and 1 thread)
+/----- TRAINING API -----\
+The training api is available at http://localhost:5253/ping. Returned http-code is as expected: 200
+
+/----- TRAINING API -----\
+The training api is available at http://localhost:5253/ping. Returned http-code is as expected: 200
+/----- OBJECT STORE -----\
+/----- TRAINING API -----\
+The training api is available at http://localhost:5253/ping. Returned http-code is as expected: 200
+
+/----- TRAINING API -----\
+The training api is available at http://localhost:5253/ping. Returned http-code is as expected: 200
+
+/----- SERVING API -----\
+Latency when retrieving a list of all available models: 10.80ms. Returned http-code is as expected: 200
+Latency when requesting inference from onnx_emo_datastore model: 56.15ms. Returned http-code is as expected: 500
