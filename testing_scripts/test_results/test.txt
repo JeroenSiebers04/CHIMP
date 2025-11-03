@@ -649,4 +649,282 @@ The training api is available at http://localhost:5253/ping. Returned http-code 
 
 /----- SERVING API -----\
 Throughput of the endpoint that lists all available models: 220.47 requests per second. (Using the available hardware and 1 thread)
-Throughput of the endpoint that requests inference: 19.97 requests per second. (Using the available hardware and 1 thread)
+Throughput of the endpoint that requests inference: 19.97 requests per second. (Using the available hardware and 1 thread)An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open MinIO\stress_test.yml: The system cannot find the path specified.
+/----- OBJECT STORE -----\
+Report: DELETE. Concurrency: 16. Ran: 57s
+ * Average: 37.95 obj/s
+ * Reqs: Avg: 133.7ms, 50%: 132.7ms, 90%: 161.2ms, 99%: 189.5ms, Fastest: 63.0ms, Slowest: 249.1ms, StdDev: 20.8ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 51.22 obj/s
+ * 50% Median: 37.95 obj/s
+ * Slowest: 27.41 obj/s
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: GET. Concurrency: 16. Ran: 57s
+ * Average: 0.06 MiB/s, 170.56 obj/s
+
+Request size 1 B -> 100 B . Requests: 3835
+ * Reqs: Avg: 2.2KiB/s, 50%: 2.2KiB/s, 90%: 54.5B/s, 99%: 15.3B/s, Fastest: 10.7KiB/s, Slowest: 193.3B/s 
+ * TTFB: Avg: 15ms, Best: 2ms, 25th: 12ms, Median: 15ms, 75th: 17ms, 90th: 20ms, 99th: 27ms, Worst: 41ms StdDev: 4ms
+
+Request size 100B -> 1KiB . Requests: 6786
+ * Reqs: Avg: 36.7KiB/s, 50%: 35.4KiB/s, 90%: 2.9KiB/s, 99%: 1991.6B/s, Fastest: 187.9KiB/s, Slowest: 8.7KiB/s 
+ * TTFB: Avg: 15ms, Best: 2ms, 25th: 12ms, Median: 14ms, 75th: 17ms, 90th: 20ms, 99th: 27ms, Worst: 48ms StdDev: 4ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 77.2KiB/s, 205.62 obj/s
+ * 50% Median: 62.6KiB/s, 167.63 obj/s
+ * Slowest: 54.1KiB/s, 144.85 obj/s
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: PUT. Concurrency: 16. Ran: 57s
+ * Average: 0.02 MiB/s, 56.97 obj/s
+
+Request size 1 B -> 100 B . Requests: 1296
+ * Reqs: Avg: 276.0B/s, 50%: 263.5B/s, 90%: 6.6B/s, 99%: 1.0B/s, Fastest: 863.5B/s, Slowest: 25.4B/s 
+
+Request size 100B -> 1KiB . Requests: 2254
+ * Reqs: Avg: 4.7KiB/s, 50%: 4.4KiB/s, 90%: 392.6B/s, 99%: 284.2B/s, Fastest: 12.2KiB/s, Slowest: 1646.5B/s 
+
+Throughput, split into 57 x 1s:
+ * Fastest: 29.0KiB/s, 71.71 obj/s
+ * 50% Median: 24.0KiB/s, 56.42 obj/s
+ * Slowest: 16.0KiB/s, 45.47 obj/s
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: STAT. Concurrency: 16. Ran: 57s
+ * Average: 113.81 obj/s
+ * Reqs: Avg: 14.8ms, 50%: 14.3ms, 90%: 19.7ms, 99%: 26.1ms, Fastest: 1.8ms, Slowest: 39.7ms, StdDev: 3.8ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 141.48 obj/s
+ * 50% Median: 113.98 obj/s
+ * Slowest: 81.30 obj/s
+
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: Total. Concurrency: 16. Ran: 57s
+ * Average: 0.08 MiB/s, 379.29 obj/s
+
+Throughput, split into 57 x 1s:
+ * Fastest: 99.6KiB/s, 454.64 obj/s
+ * 50% Median: 89.5KiB/s, 372.49 obj/s
+ * Slowest: 74.8KiB/s, 313.57 obj/s
+
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open testing_scripts\MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open testing_scripts\MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open testing_scripts\MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open testing_scripts\MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open testing_scripts\MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open testing_scripts\MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'testing_scripts\\MinIO\\stress_test.yml\\testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open testing_scripts\MinIO\stress_test.yml\testing_scripts\MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'testing_scripts\\MinIO\\stress_test.yml\\testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open testing_scripts\MinIO\stress_test.yml\testing_scripts\MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', 'testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open testing_scripts\MinIO\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', '..\\testing_scripts\\MinIO\\stress_object_store.py\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> error reading input file: open ..\testing_scripts\MinIO\stress_object_store.py\stress_test.yml: The system cannot find the path specified.
+An error occurred while trying to stress test the object store using warp: Command '['warp', 'run', '..\\testing_scripts\\MinIO\\stress_test.yml']' returned non-zero exit status 1.Error output: warp: <ERROR> Error preparing server: initial number of objects should be at least matching concurrency.
+/----- OBJECT STORE -----\
+Report: DELETE. Concurrency: 16. Ran: 57s
+ * Average: 40.50 obj/s
+ * Reqs: Avg: 124.1ms, 50%: 123.4ms, 90%: 150.6ms, 99%: 176.3ms, Fastest: 57.9ms, Slowest: 228.9ms, StdDev: 20.2ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 51.75 obj/s
+ * 50% Median: 41.03 obj/s
+ * Slowest: 27.82 obj/s
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: GET. Concurrency: 16. Ran: 57s
+ * Average: 0.06 MiB/s, 182.14 obj/s
+
+Request size 1 B -> 100 B . Requests: 4215
+ * Reqs: Avg: 2.8KiB/s, 50%: 2.8KiB/s, 90%: 43.8B/s, 99%: 9.3B/s, Fastest: 15.0KiB/s, Slowest: 74.4B/s 
+ * TTFB: Avg: 14ms, Best: 2ms, 25th: 11ms, Median: 13ms, 75th: 16ms, 90th: 19ms, 99th: 25ms, Worst: 51ms StdDev: 4ms
+
+Request size 100B -> 1KiB . Requests: 7082
+ * Reqs: Avg: 37.8KiB/s, 50%: 35.7KiB/s, 90%: 3.2KiB/s, 99%: 2.2KiB/s, Fastest: 244.7KiB/s, Slowest: 9.9KiB/s 
+ * TTFB: Avg: 14ms, Best: 2ms, 25th: 11ms, Median: 14ms, 75th: 16ms, 90th: 19ms, 99th: 26ms, Worst: 53ms StdDev: 4ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 87.1KiB/s, 217.46 obj/s
+ * 50% Median: 68.9KiB/s, 182.75 obj/s
+ * Slowest: 52.2KiB/s, 146.55 obj/s
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: PUT. Concurrency: 16. Ran: 57s
+ * Average: 0.02 MiB/s, 60.76 obj/s
+
+Request size 1 B -> 100 B . Requests: 1349
+ * Reqs: Avg: 343.0B/s, 50%: 340.6B/s, 90%: 6.0B/s, 99%: 1.2B/s, Fastest: 955.2B/s, Slowest: 31.7B/s 
+
+Request size 100B -> 1KiB . Requests: 2413
+ * Reqs: Avg: 4.8KiB/s, 50%: 4.5KiB/s, 90%: 428.5B/s, 99%: 340.1B/s, Fastest: 12.5KiB/s, Slowest: 1801.6B/s 
+
+Throughput, split into 57 x 1s:
+ * Fastest: 29.9KiB/s, 73.75 obj/s
+ * 50% Median: 23.5KiB/s, 61.37 obj/s
+ * Slowest: 20.9KiB/s, 49.69 obj/s
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: STAT. Concurrency: 16. Ran: 57s
+ * Average: 121.56 obj/s
+ * Reqs: Avg: 14.0ms, 50%: 13.6ms, 90%: 18.7ms, 99%: 24.9ms, Fastest: 1.6ms, Slowest: 60.3ms, StdDev: 3.7ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 148.82 obj/s
+ * 50% Median: 122.01 obj/s
+ * Slowest: 84.73 obj/s
+
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: Total. Concurrency: 16. Ran: 57s
+ * Average: 0.09 MiB/s, 404.95 obj/s
+
+Throughput, split into 57 x 1s:
+ * Fastest: 116.6KiB/s, 478.81 obj/s
+ * 50% Median: 77.9KiB/s, 400.02 obj/s
+ * Slowest: 68.7KiB/s, 324.64 obj/s
+
+/----- OBJECT STORE -----\
+Report: DELETE. Concurrency: 16. Ran: 57s
+ * Average: 39.15 obj/s
+ * Reqs: Avg: 125.7ms, 50%: 126.0ms, 90%: 152.1ms, 99%: 177.5ms, Fastest: 60.8ms, Slowest: 233.7ms, StdDev: 20.4ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 49.57 obj/s
+ * 50% Median: 39.42 obj/s
+ * Slowest: 28.09 obj/s
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: GET. Concurrency: 16. Ran: 57s
+ * Average: 0.06 MiB/s, 175.80 obj/s
+
+Request size 1 B -> 100 B . Requests: 3790
+ * Reqs: Avg: 2.4KiB/s, 50%: 2.2KiB/s, 90%: 52.9B/s, 99%: 9.8B/s, Fastest: 7.9KiB/s, Slowest: 195.2B/s 
+ * TTFB: Avg: 16ms, Best: 5ms, 25th: 13ms, Median: 16ms, 75th: 19ms, 90th: 21ms, 99th: 27ms, Worst: 52ms StdDev: 4ms
+
+Request size 100B -> 1KiB . Requests: 7171
+ * Reqs: Avg: 35.5KiB/s, 50%: 32.6KiB/s, 90%: 3.0KiB/s, 99%: 2.0KiB/s, Fastest: 115.9KiB/s, Slowest: 9.7KiB/s 
+ * TTFB: Avg: 15ms, Best: 4ms, 25th: 13ms, Median: 15ms, 75th: 18ms, 90th: 20ms, 99th: 26ms, Worst: 54ms StdDev: 4ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 81.3KiB/s, 216.06 obj/s
+ * 50% Median: 69.7KiB/s, 175.63 obj/s
+ * Slowest: 42.0KiB/s, 130.75 obj/s
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: PUT. Concurrency: 16. Ran: 57s
+ * Average: 0.02 MiB/s, 58.48 obj/s
+
+Request size 1 B -> 100 B . Requests: 1314
+ * Reqs: Avg: 344.6B/s, 50%: 320.3B/s, 90%: 6.9B/s, 99%: 1.3B/s, Fastest: 1025.6B/s, Slowest: 28.4B/s 
+
+Request size 100B -> 1KiB . Requests: 2340
+ * Reqs: Avg: 4.8KiB/s, 50%: 4.4KiB/s, 90%: 401.9B/s, 99%: 311.9B/s, Fastest: 13.5KiB/s, Slowest: 1809.9B/s 
+
+Throughput, split into 57 x 1s:
+ * Fastest: 29.4KiB/s, 71.48 obj/s
+ * 50% Median: 21.8KiB/s, 57.39 obj/s
+ * Slowest: 18.8KiB/s, 46.11 obj/s
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: STAT. Concurrency: 16. Ran: 57s
+ * Average: 117.28 obj/s
+ * Reqs: Avg: 15.4ms, 50%: 15.0ms, 90%: 19.8ms, 99%: 26.7ms, Fastest: 3.4ms, Slowest: 64.8ms, StdDev: 3.7ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 146.61 obj/s
+ * 50% Median: 116.13 obj/s
+ * Slowest: 89.51 obj/s
+
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Report: Total. Concurrency: 16. Ran: 57s
+ * Average: 0.09 MiB/s, 390.72 obj/s
+
+Throughput, split into 57 x 1s:
+ * Fastest: 94.3KiB/s, 467.51 obj/s
+ * 50% Median: 81.3KiB/s, 379.46 obj/s
+ * Slowest: 58.5KiB/s, 306.11 obj/s
+
+/----- OBJECT STORE -----\
+Report: DELETE. Concurrency: 16. Ran: 57s
+ * Average: 37.30 obj/s
+ * Reqs: Avg: 135.4ms, 50%: 133.8ms, 90%: 166.0ms, 99%: 194.9ms, Fastest: 66.1ms, Slowest: 250.0ms, StdDev: 22.6ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 54.91 obj/s
+ * 50% Median: 36.46 obj/s
+ * Slowest: 25.23 obj/s
+
+──────────────────────────────────
+
+Report: GET. Concurrency: 16. Ran: 57s
+ * Average: 0.06 MiB/s, 168.02 obj/s
+
+Request size 1 B -> 100 B . Requests: 3514
+ * Reqs: Avg: 2.3KiB/s, 50%: 2.1KiB/s, 90%: 53.0B/s, 99%: 10.4B/s, Fastest: 9.7KiB/s, Slowest: 87.7B/s 
+ * TTFB: Avg: 15ms, Best: 4ms, 25th: 12ms, Median: 15ms, 75th: 17ms, 90th: 20ms, 99th: 29ms, Worst: 40ms StdDev: 4ms
+
+Request size 100B -> 1KiB . Requests: 6978
+ * Reqs: Avg: 35.8KiB/s, 50%: 34.4KiB/s, 90%: 3.0KiB/s, 99%: 2.0KiB/s, Fastest: 127.5KiB/s, Slowest: 8.6KiB/s 
+ * TTFB: Avg: 15ms, Best: 4ms, 25th: 12ms, Median: 15ms, 75th: 17ms, 90th: 20ms, 99th: 29ms, Worst: 59ms StdDev: 4ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 87.4KiB/s, 207.99 obj/s
+ * 50% Median: 63.9KiB/s, 168.12 obj/s
+ * Slowest: 50.9KiB/s, 134.49 obj/s
+
+──────────────────────────────────
+
+Report: PUT. Concurrency: 16. Ran: 57s
+ * Average: 0.02 MiB/s, 56.07 obj/s
+
+Request size 1 B -> 100 B . Requests: 1226
+ * Reqs: Avg: 284.3B/s, 50%: 258.1B/s, 90%: 4.0B/s, 99%: 0.8B/s, Fastest: 885.6B/s, Slowest: 24.8B/s 
+
+Request size 100B -> 1KiB . Requests: 2257
+ * Reqs: Avg: 4.6KiB/s, 50%: 4.4KiB/s, 90%: 398.5B/s, 99%: 289.5B/s, Fastest: 12.1KiB/s, Slowest: 1642.7B/s 
+
+Throughput, split into 57 x 1s:
+ * Fastest: 25.1KiB/s, 71.16 obj/s
+ * 50% Median: 20.9KiB/s, 56.35 obj/s
+ * Slowest: 19.0KiB/s, 45.76 obj/s
+
+──────────────────────────────────
+
+Report: STAT. Concurrency: 16. Ran: 57s
+ * Average: 112.08 obj/s
+ * Reqs: Avg: 15.2ms, 50%: 14.6ms, 90%: 20.3ms, 99%: 29.0ms, Fastest: 1.7ms, Slowest: 47.8ms, StdDev: 4.2ms
+
+Throughput, split into 57 x 1s:
+ * Fastest: 135.65 obj/s
+ * 50% Median: 110.67 obj/s
+ * Slowest: 85.51 obj/s
+
+
+──────────────────────────────────
+
+Report: Total. Concurrency: 16. Ran: 57s
+ * Average: 0.08 MiB/s, 373.47 obj/s
+
+Throughput, split into 57 x 1s:
+ * Fastest: 114.7KiB/s, 447.23 obj/s
+ * 50% Median: 79.5KiB/s, 365.36 obj/s
+ * Slowest: 63.7KiB/s, 305.51 obj/s
+

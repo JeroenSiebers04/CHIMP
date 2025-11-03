@@ -69,6 +69,9 @@ def index():
                 ok = False
             accepts_amount[name] = ok
 
+    if 'MinIO - stress test' in accepts_amount:
+        accepts_amount['MinIO - stress test'] = True
+
     return render_template('index.html', tabs=SCRIPTS_BY_TAB, accepts_amount=accepts_amount, hints=SCRIPTS_HINTS)
 
 
@@ -99,6 +102,18 @@ def run_script():
                 continue
 
         abs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), path))
+        # Optional header message for pre-run actions (e.g. update YAML)
+        header_msg = None
+
+        # If this is the MinIO stress test and an amount was provided, update the
+        # existing stress_test.yml in-place (replace the objects: value).
+        if amount is not None and script_name == 'MinIO - stress test':
+            try:
+                _update_stress_yaml(amount)
+                header_msg = f'Updated stress_test.yml with objects={amount}'
+            except Exception as e:
+                results[script_name] = f'Failed to update stress_test.yml: {e}'
+                continue
 
         if amount is not None:
             try:
@@ -128,6 +143,11 @@ def run_script():
                 results[script_name] = out if out else err if err else f'Exit code {proc.returncode} (no output)'
             except Exception as e:
                 results[script_name] = str(e)
+
+        # Prepend header message (if any) to the script result so the user sees
+        # that we updated the YAML before running the test.
+        if header_msg and script_name in results:
+            results[script_name] = header_msg + ' -- ' + results[script_name]
 
     return render_template('results.html', results=results)
 
@@ -175,6 +195,37 @@ def _call_module_with_amount(module, amount):
             return fn(amount)
     except TypeError:
         return fn()
+
+
+def _update_stress_yaml(objects):
+    """Update the existing testing_scripts/MinIO/stress_test.yml file in-place.
+
+    Replace the first occurrence of a line like 'objects: 10000' with the
+    provided integer. Raises FileNotFoundError if the YAML doesn't exist.
+    """
+    yml_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'testing_scripts', 'MinIO', 'stress_test.yml'))
+    if not os.path.exists(yml_path):
+        raise FileNotFoundError(yml_path)
+    with open(yml_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    # Replace the first non-commented objects: line with the new value.
+    # Use a regex that matches a line that starts (possibly with spaces) and
+    # then 'objects:' and digits. We avoid touching commented lines that start with '#'.
+    def replacer(match):
+        prefix = match.group(1)
+        return f"{prefix}objects: {int(objects)}"
+
+    new_content, n = re.subn(r'(^\s*)(objects:\s*)\d+', replacer, content, count=1, flags=re.MULTILINE)
+    if n == 0:
+        # No numeric objects line found; fall back to a safer substitution that
+        # replaces any 'objects:' occurrence (even if not numeric).
+        new_content, n2 = re.subn(r'(^\s*)(objects:\s*).*', lambda m: f"{m.group(1)}objects: {int(objects)}", content, count=1, flags=re.MULTILINE)
+        if n2 == 0:
+            raise RuntimeError('Could not find an objects: entry to replace in stress_test.yml')
+
+    with open(yml_path, 'w', encoding='utf-8') as f:
+        f.write(new_content)
 
 
 @app.route('/run_with_amount', methods=['POST'])
