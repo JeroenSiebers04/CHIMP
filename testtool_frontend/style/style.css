@@ -37,7 +37,6 @@ pre {
     display: none;
 }
 
-/* Tab bar styles */
 .tabbar {
     display: flex;
     gap: 8px;
@@ -53,11 +52,9 @@ pre {
     cursor: pointer;
 }
 
-/* Active/selected tab */
 .tab-button.active {
-    /* Use explicit properties and !important to ensure this rule wins over generic button styles
-       (some environments or cached CSS can cause the element rule to override class rules). */
-    background-color: #007BFF !important; /* primary blue */
+
+    background-color: #007BFF !important; 
     color: #fff !important;
     border-color: #0056b3 !important;
     box-shadow: 0 1px 0 rgba(0,0,0,0.05) inset;
@@ -88,3 +85,4 @@ pre {
     body { margin: 1rem; }
     .tabbar { gap:6px; }
 }
+

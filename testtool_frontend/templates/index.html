@@ -3,8 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Testtool Frontend</title>
-    <link rel="stylesheet" href="..\\style\\style.css">
+    <link rel="stylesheet" href="/style/style.css">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        #loading-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.45);
+            z-index: 9999;
+        }
+        #loading-modal .panel {
+            background: #fff;
+            color: #111;
+            padding: 1.25rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            max-width: 90%;
+        }
+        .spinner {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            border: 3px solid #ddd;
+            border-top-color: #2b7cff;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (prefers-reduced-motion: reduce) {
+            .spinner { animation: none; }
+        }
+    </style>
     <script>
         function showTab(tabIdOrButton) {
             var tabId = typeof tabIdOrButton === 'string' ? tabIdOrButton : tabIdOrButton.getAttribute('data-tab');
