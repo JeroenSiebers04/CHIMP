@@ -5,8 +5,12 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from  generate_test_output import write_file, initialize_empty_txt
-
 import subprocess
+import re
+
+def sanitize_output(text: str) -> str:
+    return re.sub(r'[^\x20-\x7E\n\r\t]', '', text)
+
 def get_objectstore_storage_size(is_first_time):
     initialize_empty_txt()
     # is_first_time should be a string, where 'y' signifies a first time usage that would require initialisation
@@ -16,13 +20,14 @@ def get_objectstore_storage_size(is_first_time):
     path_string = trimmed_path + "\mc.exe"
     mc = os.path.join(path_string)
 
-    is_first_time = is_first_time.lower
+    is_first_time = is_first_time.lower()
     if(is_first_time != "y"):
         result = subprocess.run(f"{mc} admin info MyMinio", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         result_clean = result.stdout.decode('utf-8')
+        sanitised = sanitize_output(result_clean)
         print("/----- OBJECT STORE -----\\")
         write_file("\n/----- OBJECT STORE -----\\")
-        print(f"\n{result_clean}")
+        print(f"\n{sanitised}")
         write_file(f"\n{result_clean}")
 
     else:

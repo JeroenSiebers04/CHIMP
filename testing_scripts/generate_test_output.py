@@ -29,15 +29,19 @@ def initialize_empty_txt():
 
     file_to_write = os.path.join(file_to_write)
 
-    with open(file_to_write, "r", encoding="utf-8") as text_file:
-        content = []
-        for line in text_file:
-            content.append(line)
-        if content == []:
-            with open(file_to_write, "w") as text_file:
+    try:
+        with open(file_to_write, "r", encoding="utf-8") as text_file:
+            content = []
+            for line in text_file:
+                content.append(line)
+            if content == []:
+                with open(file_to_write, "w") as text_file:
+                    current_datetime = datetime.now()
+                    text_file.write(str(current_datetime))
+    except:
+        with open(file_to_write, "w", encoding="utf-8") as text_file:
                 current_datetime = datetime.now()
                 text_file.write(str(current_datetime))
-
 
 
 # This reads the output text file and prints the contents inclusing regocnition of the component that the line belongs to

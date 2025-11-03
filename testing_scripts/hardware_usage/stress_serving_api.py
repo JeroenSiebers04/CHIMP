@@ -11,15 +11,12 @@ def stress_serving_api_hardware(amount):
     initialize_empty_txt()
     url = "http://localhost:5254/model"
     i=0
+    print("Starting sending the requests.")
     try:
         while i < amount:
             i += 1
 
             response = requests.get(url)
-
-            print(f"Status code: {response.status_code}")
-            print(response.text)
-            print(f"Finished request {i} of {amount}\n")
 
         print("Script finished successfully.")
         write_file("\n/----- SERVING API -----\\")
