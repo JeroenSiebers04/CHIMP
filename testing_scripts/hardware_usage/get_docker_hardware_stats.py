@@ -7,9 +7,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from  generate_test_output import write_file, initialize_empty_txt
 
 import subprocess
-def get_docker_hardware_stats():
+def get_docker_hardware_stats(container_name):
     initialize_empty_txt()
-    result = subprocess.run("docker stats --no-stream", capture_output=True, text=True)
+    result = subprocess.run(f"docker stats {container_name} --no-stream", capture_output=True, text=True)
 
     output = result.stdout
 
@@ -19,4 +19,4 @@ def get_docker_hardware_stats():
     write_file(output)
 
 if __name__ == "__main__":
-    get_docker_hardware_stats()
+    get_docker_hardware_stats(container_name="")

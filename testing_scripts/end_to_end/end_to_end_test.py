@@ -11,55 +11,72 @@ import subprocess
 frontend_tests_finished = False
 frontend_hardware_finished = False
 serving_api_availability_finished = False
+serving_api_latency_finished = False
 serving_api_throughput_finished = False
+serving_api_hardware_started = False
+serving_api_hardware_finished = False
+mlflow_latency_finished = False
+mlflow_storage_size_finished = False
+mlflow_hardware_started = False
+mlflow_hardware_finished = False
+values_reset = False
 
 def frontend_tests():
     global frontend_tests_finished
     print("This is a placeholder for the frontend tests")
     now = time.time()
     duration = 10
+    i=0
     while True:
         if time.time() - now > duration:
             frontend_tests_finished = True
             break
+        if i == 0:
+            i += 1
+            print("/----- FRONTEND -----\\")
 
 def frontend_hardware_stress():
+    global  frontend_tests_finished
     large_loop_iterations = 0
     while large_loop_iterations == 0:
         if frontend_tests_finished == True:
             large_loop_iterations += 1
             print("This is a placeholder for the frontend hardware stressing")
             now = time.time()
-            duration = 5
+            duration = 10
+            i=0
             while True:
                 if time.time() - now > duration:
+                    print("done hardware stress")
                     break
+                if i == 0:
+                    i += 1
+                    print("/----- FRONTEND -----\\")
+
         else:
-            time.sleep(5)
+            time.sleep(1)
 
 def frontend_hardware_stats():
     global frontend_hardware_finished
+    global frontend_tests_finished
     large_loop_iterations = 0
     while large_loop_iterations == 0:
         if frontend_tests_finished == True:
             large_loop_iterations += 1
+            from hardware_usage.get_docker_hardware_stats import get_docker_hardware_stats
             now = time.time()
-            duration = 5
+            duration = 10
             i=0
             while True:
                 if time.time() - now > duration:
                     break
             if i == 0:
+                i += 1
                 time.sleep(2)
-                result = subprocess.run("docker stats frontend-app-abdul --no-stream", capture_output=True, text=True)
-                output = result.stdout
-                print("/----- DOCKER HARDWARE STATS -----\\")
-                write_file("\n/----- DOCKER HARDWARE STATS -----\\\n")
-                print(output)
-                write_file(output)
+                get_docker_hardware_stats(container_name="frontend-app-abdul")
                 frontend_hardware_finished = True
         else:
-            time.sleep(5)
+            time.sleep(1)
 
 def serving_api_availability():
     global serving_api_availability_finished
@@ -79,13 +96,35 @@ def serving_api_availability():
                     get_serving_api_availability()
                     serving_api_availability_finished = True
         else:
-            time.sleep(5)
+            time.sleep(1)
+
+def serving_api_latency():
+    global serving_api_availability_finished
+    global serving_api_latency_finished
+    large_loop_iterations = 0
+    while large_loop_iterations == 0:
+        if serving_api_availability_finished == True:
+            large_loop_iterations += 1
+            from API.latency_serving_api_endpoints import test_latency_serving_api_endpoints
+            now = time.time()
+            duration = 5
+            i=0
+            while True:
+                if time.time() - now > duration:
+                    break
+                if i == 0:
+                    i += 1
+                    test_latency_serving_api_endpoints()
+                    serving_api_latency_finished = True
+        else:
+            time.sleep(1)
 
 def serving_api_throughput(amount):
     global serving_api_throughput_finished
+    global serving_api_latency_finished
     large_loop_iterations = 0
     while large_loop_iterations == 0:
-        if frontend_hardware_finished == True:
+        if serving_api_latency_finished == True:
             large_loop_iterations += 1
             from API.serving_api_throughput import test_serving_api_throughput
             now = time.time()
@@ -99,39 +138,155 @@ def serving_api_throughput(amount):
                     test_serving_api_throughput(amount)
                     serving_api_throughput_finished = True
         else:
-            time.sleep(5)
+            time.sleep(1)
 
 def serving_api_hardware(amount):
+    global serving_api_throughput_finished
+    global serving_api_hardware_started
+    global serving_api_hardware_finished
     large_loop_iterations = 0
     while large_loop_iterations == 0:
         if serving_api_throughput_finished == True:
             large_loop_iterations += 1
             from hardware_usage.stress_serving_api import stress_serving_api_hardware
-            print("Starting hardware stress on serving API")
             now = time.time()
             duration = 60
-            small_loop_iterations = 0
+            i = 0
             while True:
                 if time.time() - now > duration:
-                    print("60 seconds elapsed")
+                    serving_api_hardware_finished = True
                     break
-                if small_loop_iterations == 0:
-                    small_loop_iterations += 1
+                if i == 0:
+                    print("Starting hardware stress on serving API")
+                    i += 1
+                    serving_api_hardware_started = True
                     stress_serving_api_hardware(amount)
                     
         else:
+            time.sleep(1)
+
+def serving_api_hardware_stats():
+    global serving_api_hardware_started
+    large_loop_iterations = 0
+    while large_loop_iterations == 0:
+        if serving_api_hardware_started == True:
             time.sleep(5)
+            large_loop_iterations += 1
+            from hardware_usage.get_docker_hardware_stats import get_docker_hardware_stats
+            now = time.time()
+            duration = 5
+            i=0
+            while True:
+                if time.time() - now > duration:
+                    break
+            if i == 0:
+                i += 1
+                time.sleep(2)
+                get_docker_hardware_stats(container_name="serving-api")
+        else:
+            time.sleep(1)
+
+def mlflow_latency():
+    global serving_api_hardware_finished
+    global mlflow_latency_finished
+    large_loop_iterations = 0
+    while large_loop_iterations == 0:
+        if serving_api_hardware_finished == True:
+            large_loop_iterations += 1
+            now = time.time()
+            duration = 5
+            i=0
+            while True:
+                if time.time() - now > duration:
+                    break
+            if i == 0:
+                i += 1
+                print("\n/----- MLFLOW -----\\ \nMLFlow latency placeholder")
+                mlflow_latency_finished = True
+
+        else:
+            time.sleep(1)
+
+def mlflow_storage_size():
+    global mlflow_latency_finished
+    global mlflow_storage_size_finished
+    large_loop_iterations = 0
+    while large_loop_iterations == 0:
+        if mlflow_latency_finished == True:
+            large_loop_iterations += 1
+            from MLFlow.get_mlflow_storage_size import get_mlflow_storage_size
+            now = time.time()
+            duration = 5
+            i=0
+            while True:
+                if time.time() - now > duration:
+                    break
+            if i == 0:
+                i += 1
+                get_mlflow_storage_size()
+                mlflow_storage_size_finished = True
+
+        else:
+            time.sleep(1)
+
+def mlflow_hardware():
+    global mlflow_hardware_finished
+    global mlflow_storage_size_finished
+    global mlflow_hardware_started
+    large_loop_iterations = 0
+    while large_loop_iterations == 0:
+        if mlflow_storage_size_finished == True:
+            large_loop_iterations += 1
+            now = time.time()
+            duration = 60
+            i=0
+            while True:
+                if time.time() - now > duration:
+                    break
+            if i == 0:
+                i += 1
+                mlflow_hardware_started = True
+                print("\n/----- MLFLOW -----\\ \nMLFlow hardware placeholder")
+                mlflow_hardware_finished = True
+
+        else:
+            time.sleep(1)
+
+def mlflow_hardware_stats():
+    global mlflow_hardware_started
+    large_loop_iterations = 0
+    while large_loop_iterations == 0:
+        if mlflow_hardware_started == True:
+            time.sleep(5)
+            large_loop_iterations += 1
+            from hardware_usage.get_docker_hardware_stats import get_docker_hardware_stats
+            now = time.time()
+            duration = 5
+            i=0
+            while True:
+                if time.time() - now > duration:
+                    break
+            if i == 0:
+                i += 1
+                time.sleep(2)
+                get_docker_hardware_stats(container_name="mlflow-tracking-server")
+        else:
+            time.sleep(1)
 
 def start_end_to_end_test():
     tasks =[
         (frontend_tests, 0),
-        (frontend_hardware_stress, 0),
-        (frontend_hardware_stats, 0),
-        (serving_api_availability, 0),
-        (lambda: serving_api_throughput(amount=1000), 0),
-        (lambda: serving_api_hardware(amount=50000), 0)
-        #(lambda: end_to_end_test(1), 4) example of passing argument
-        
+        (frontend_hardware_stress, 5),
+        (frontend_hardware_stats, 5),
+        (serving_api_availability, 10),
+        (serving_api_latency, 15),
+        (lambda: serving_api_throughput(amount=1000), 20),
+        (lambda: serving_api_hardware(amount=50000), 25),
+        (serving_api_hardware_stats, 25),
+        (mlflow_latency, 85),
+        (mlflow_storage_size, 90),
+        (mlflow_hardware, 95),
+        (mlflow_hardware_stats, 100)
     ]
     
     threads = []

@@ -74,8 +74,7 @@ warp:
 
     # The number of objects to upload before starting the benchmark.
     # Upload enough objects to ensure that any remote caching is bypassed.
-    # This value can be replaced at runtime by the frontend/back-end.
-    objects: 20
+    objects: 10000
 
     # Adjust the distribution of each operation type
     # The final distribution will be determined by the fraction of each value of the total.

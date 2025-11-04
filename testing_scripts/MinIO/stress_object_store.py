@@ -8,21 +8,20 @@ from  generate_test_output import write_file, initialize_empty_txt
 import subprocess
 def stress_object_store():
     initialize_empty_txt()
-    input = "2"
+    print("Select your yml file below")
+    print("1. test.yml")
+    print("2. stress_test.yml\n")
+    input2 = input("Enter your choice here: ")
 
-    if input == "1":
+    if input2 == "1":
         file = "test.yml"
-    elif input == "2":
+    elif input2 == "2":
         file = "stress_test.yml"
     else:
         print("Invalid choice. Exiting.")
         exit()
 
-    current_path = os.path.join(__file__)
-    trimmed_path = current_path.replace("\stress_object_store.py", "")
-    path_string = trimmed_path + "\stress_test.yml"
-    path = os.path.join(path_string)
-    
+    path = os.path.join(os.getcwd(), "MinIO", file)
 
     command = [
         "warp",
@@ -31,9 +30,9 @@ def stress_object_store():
     ]
 
     try:
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        output = result.stdout.decode('utf-8')
-        # print("/----- OBJECT STORE -----\\")
+        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        output = result.stdout
+        print("/----- OBJECT STORE -----\\")
         write_file("/----- OBJECT STORE -----\\")
         print("Command executed successfully. Output:")
         print(output)
