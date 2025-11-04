@@ -31,3 +31,5 @@ Therefore, a few things should be considered when interpreting the data:
   Example: Whilst performing a stress test on the serving API where 50,000 API requests are sent as fast as possible, the API starts returning errors after handling 13,500 requests. To identify whether this issue is hardware related, the hardware statistics can be consulted. The hardware statistics show that during the test there was a 30%/1600% CPU usage and the container used 1GB/32GB memory. This means the hardware was nowhere near its limits, and most likely not responsible for the failing of the API.
 
 - The data is a capture of a single moment in time. For reliable results, tests should be performed regularly and with varying parameters.
+
+- The data is heavily dependent on the hardware that is used to host the CHIMP platform. 
