@@ -33,3 +33,9 @@ Therefore, a few things should be considered when interpreting the data:
 - The data is a capture of a single moment in time. For reliable results, tests should be performed regularly and with varying parameters.
 
 - The data is heavily dependent on the hardware that is used to host the CHIMP platform. 
+
+## Unit Tests
+
+This project contains a number of unit tests created for the code contained within the testing tool. These unit tests were created up until October 23rd of 2025. These unit tests may not be up to date with the current code and should be updated before using them to validate the current code.
+
+To run the tests, navigate to the folder `unit_tests_testtool` and execute the following command: `pytest unit_tests.py`.
