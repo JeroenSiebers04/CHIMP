@@ -19,13 +19,17 @@ mlflow_latency_finished = False
 mlflow_storage_size_finished = False
 mlflow_hardware_started = False
 mlflow_hardware_finished = False
-values_reset = False
 
+frontend_tests_finished2 = False
+frontend_hardware_started2 = False
+frontend_hardware_finished2 = False
+
+# End to end for the interaction where a user uses the model
 def frontend_tests():
     global frontend_tests_finished
     print("This is a placeholder for the frontend tests")
     now = time.time()
-    duration = 10
+    duration = 5
     i=0
     while True:
         if time.time() - now > duration:
@@ -35,15 +39,16 @@ def frontend_tests():
             i += 1
             print("/----- FRONTEND -----\\")
 
-def frontend_hardware_stress():
+def frontend_hardware():
     global  frontend_tests_finished
+    global frontend_hardware_finished
     large_loop_iterations = 0
     while large_loop_iterations == 0:
         if frontend_tests_finished == True:
             large_loop_iterations += 1
             print("This is a placeholder for the frontend hardware stressing")
             now = time.time()
-            duration = 10
+            duration = 5
             i=0
             while True:
                 if time.time() - now > duration:
@@ -52,6 +57,7 @@ def frontend_hardware_stress():
                 if i == 0:
                     i += 1
                     print("/----- FRONTEND -----\\")
+                    frontend_hardware_finished = True
 
         else:
             time.sleep(1)
@@ -65,7 +71,7 @@ def frontend_hardware_stats():
             large_loop_iterations += 1
             from hardware_usage.get_docker_hardware_stats import get_docker_hardware_stats
             now = time.time()
-            duration = 10
+            duration = 5
             i=0
             while True:
                 if time.time() - now > duration:
@@ -74,7 +80,6 @@ def frontend_hardware_stats():
                 i += 1
                 time.sleep(2)
                 get_docker_hardware_stats(container_name="frontend-app-abdul")
-                frontend_hardware_finished = True
         else:
             time.sleep(1)
 
@@ -234,10 +239,10 @@ def mlflow_hardware():
     global mlflow_storage_size_finished
     global mlflow_hardware_started
     large_loop_iterations = 0
+    now = time.time()
     while large_loop_iterations == 0:
         if mlflow_storage_size_finished == True:
             large_loop_iterations += 1
-            now = time.time()
             duration = 60
             i=0
             while True:
@@ -255,12 +260,12 @@ def mlflow_hardware():
 def mlflow_hardware_stats():
     global mlflow_hardware_started
     large_loop_iterations = 0
+    now = time.time()
     while large_loop_iterations == 0:
         if mlflow_hardware_started == True:
             time.sleep(5)
             large_loop_iterations += 1
             from hardware_usage.get_docker_hardware_stats import get_docker_hardware_stats
-            now = time.time()
             duration = 5
             i=0
             while True:
@@ -276,7 +281,7 @@ def mlflow_hardware_stats():
 def start_end_to_end_test():
     tasks =[
         (frontend_tests, 0),
-        (frontend_hardware_stress, 5),
+        (frontend_hardware, 5),
         (frontend_hardware_stats, 5),
         (serving_api_availability, 10),
         (serving_api_latency, 15),

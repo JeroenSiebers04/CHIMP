@@ -28,7 +28,7 @@ def test_latency_serving_api_endpoints():
   inference_ip = "http://localhost:5254/model/onnx_emo_datastore/infer"
 
   mock_json_input = {
-    "inputs": ["a"]
+    "inputs": ['a']
   }
 
   latency_inference_s = timeit.timeit(lambda: requests.post(inference_ip, json=mock_json_input), number=1)
