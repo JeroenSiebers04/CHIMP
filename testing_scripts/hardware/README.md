@@ -1,0 +1,1 @@
+This folder contains scripts related to measuring hardware statistics and stressing the hardware.

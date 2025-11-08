@@ -69,7 +69,7 @@ def frontend_hardware_stats():
     while large_loop_iterations == 0:
         if frontend_tests_finished == True:
             large_loop_iterations += 1
-            from hardware_usage.get_docker_hardware_stats import get_docker_hardware_stats
+            from hardware.get_docker_hardware_stats import get_docker_hardware_stats
             now = time.time()
             duration = 5
             i=0
@@ -89,7 +89,7 @@ def serving_api_availability():
     while large_loop_iterations == 0:
         if frontend_hardware_finished == True:
             large_loop_iterations += 1
-            from API.serving_api_availability import get_serving_api_availability
+            from serving_api.serving_api_availability import get_serving_api_availability
             now = time.time()
             duration = 5
             i=0
@@ -110,7 +110,7 @@ def serving_api_latency():
     while large_loop_iterations == 0:
         if serving_api_availability_finished == True:
             large_loop_iterations += 1
-            from API.latency_serving_api_endpoints import test_latency_serving_api_endpoints
+            from serving_api.serving_api_latency import test_latency_serving_api_endpoints
             now = time.time()
             duration = 5
             i=0
@@ -131,7 +131,7 @@ def serving_api_throughput(amount):
     while large_loop_iterations == 0:
         if serving_api_latency_finished == True:
             large_loop_iterations += 1
-            from API.serving_api_throughput import test_serving_api_throughput
+            from serving_api.serving_api_throughput import test_serving_api_throughput
             now = time.time()
             duration = 10
             i = 0
@@ -153,7 +153,7 @@ def serving_api_hardware(amount):
     while large_loop_iterations == 0:
         if serving_api_throughput_finished == True:
             large_loop_iterations += 1
-            from hardware_usage.stress_serving_api import stress_serving_api_hardware
+            from hardware.stress_serving_api import stress_serving_api_hardware
             now = time.time()
             duration = 60
             i = 0
@@ -177,7 +177,7 @@ def serving_api_hardware_stats():
         if serving_api_hardware_started == True:
             time.sleep(5)
             large_loop_iterations += 1
-            from hardware_usage.get_docker_hardware_stats import get_docker_hardware_stats
+            from hardware.get_docker_hardware_stats import get_docker_hardware_stats
             now = time.time()
             duration = 5
             i=0
@@ -219,7 +219,7 @@ def mlflow_storage_size():
     while large_loop_iterations == 0:
         if mlflow_latency_finished == True:
             large_loop_iterations += 1
-            from MLFlow.get_mlflow_storage_size import get_mlflow_storage_size
+            from mlflow.get_mlflow_storage_size import get_mlflow_storage_size
             now = time.time()
             duration = 5
             i=0
@@ -265,7 +265,7 @@ def mlflow_hardware_stats():
         if mlflow_hardware_started == True:
             time.sleep(5)
             large_loop_iterations += 1
-            from hardware_usage.get_docker_hardware_stats import get_docker_hardware_stats
+            from hardware.get_docker_hardware_stats import get_docker_hardware_stats
             duration = 5
             i=0
             while True:
