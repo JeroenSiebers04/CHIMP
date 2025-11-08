@@ -2,6 +2,21 @@
 
 This testtool is made for the CHIMP project. It aims to stress the docker containers inside the CHIMP project and measure Key Performance Indicators (KPIs) for every container that will assist in concluding whether a component is considered a bottleneck.
 
+## Important information
+Some of the scripts in this project do something that applies to multiple components. Therefore, not each KPI gets its very own script. Sometimes a KPI for a component can be determined from the data of another script. The KPI that are measured through different scripts than `<Name>_<KPI>.py` are as follows:
+
+- **MLFlow latency**:
+  The latency of MLFlow can be determined by looking at the time it took to retrieve a list of models from the serving API as this directly communicates with MLFlow to gather said list.
+  
+- **Object Store error rate**:
+  The error rate for the object store can be determined through the program used to run its stress tests (benchmarks). The report that it generates after it finished the test contains both the total operations and the amount of errors. This leads to the error rate by performing the following calculation: `errors / total operations * 100`
+
+- **Stress testing the Training Worker and MLFlow**:
+  The script named `stress_training_and_mlflow_hardware.py` is designed to generate a spike in hardware usage for both the Training Worker and MLFlow.
+
+- **Stress testing the Training API and the Object Store**:
+  The script names `stress_training_api_obejctstore_hardware.py` is designed to generate a spike in hardware usage for both the Training API and the Object Store.
+
 ## Uses of the tool
 
 The tool has 2 main uses: performing a specific component test on the specified container and performing an end-to-end test for the whole CHIMP project, which uses stress tests and measurements together. The webpage for this tool offers easy access to performing these tests.
