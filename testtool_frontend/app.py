@@ -10,7 +10,7 @@ import re
 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from testing_scripts.hardware_usage.stress_serving_api import stress_serving_api_hardware
+from testing_scripts.hardware.stress_serving_api import stress_serving_api_hardware
 
 # Serve the local `style` directory at the URL path `/style` so the existing
 # stylesheet link <link href="/style/style.css"> works without moving files.
@@ -21,21 +21,21 @@ SCRIPTS_BY_TAB = {
         # Moet nog aangevuld worden
     },
     "Serving API": {
-        "API - availability": "..\\testing_scripts\\API\\serving_api_availability.py",
-        "API - latency serving": "..\\testing_scripts\\API\\latency_serving_api_endpoints.py",
-        "API - throughput serving": "..\\testing_scripts\\API\\serving_api_throughput.py",
+        "Serving API - availability": "..\\testing_scripts\\serving_api\\serving_api_availability.py",
+        "Serving API - latency serving": "..\\testing_scripts\\serving_api\\serving_api_latency.py",
+        "Serving API - throughput serving": "..\\testing_scripts\\serving_api\\serving_api_throughput.py",
     },
     "Training API": {
-        "API - availability": "..\\testing_scripts\\API\\training_api_availability.py", 
-        "API - latency training": "..\\testing_scripts\\API\\latency_training_api_endpoint.py",
-        "API - throughput training": "..\\testing_scripts\\API\\training_api_throughput.py",
+        "Training API - availability": "..\\testing_scripts\\training_api\\training_api_availability.py", 
+        "Training API - latency training": "..\\testing_scripts\\training_api\\training_api_latency.py",
+        "Training API - throughput training": "..\\testing_scripts\\training_api\\training_api_throughput.py",
     },
     "MLFlow": {
-        "MLFlow - storage size": "..\\testing_scripts\\MLFlow\\get_mlflow_storage_size.py",
+        "MLFlow - storage size": "..\\testing_scripts\\mlflow\\mlflow_storage_size.py",
     },
     "Objectstore": {
-        "MinIO - stress test": "..\\testing_scripts\\MinIO/stress_object_store.py",
-        "MinIO - storage size": "..\\testing_scripts\\MinIO\\get_objectstore_storage_size.py",
+        "MinIO - stress test (Contains error rate)": "..\\testing_scripts\\hardware\\stress_object_store.py",
+        "MinIO - storage size": "..\\testing_scripts\\object_store\\get_objectstore_storage_size.py",
     },
     "Front-end": {
         # Moet nog aangevuld worden
@@ -44,7 +44,7 @@ SCRIPTS_BY_TAB = {
         # Moet nog aangevuld worden
     },
     "CHIMP": {
-        "Ketentest": "..\\testing_scripts\\menu.py",
+        "Ketentest": "..\\testing_scripts\\end_to_end_test\\end_to_end_test.py",
     },
 }
 SCRIPTS_HINTS = {

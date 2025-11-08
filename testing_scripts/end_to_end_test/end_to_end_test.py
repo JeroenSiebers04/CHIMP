@@ -219,7 +219,7 @@ def mlflow_storage_size():
     while large_loop_iterations == 0:
         if mlflow_latency_finished == True:
             large_loop_iterations += 1
-            from mlflow.get_mlflow_storage_size import get_mlflow_storage_size
+            from mlflow.mlflow_storage_size import get_mlflow_storage_size
             now = time.time()
             duration = 5
             i=0
